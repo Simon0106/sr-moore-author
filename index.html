@@ -64,39 +64,45 @@
         }
 
         @keyframes fallAndExplode {
-            0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+            0% { transform: translateY(-80px) rotate(0deg); opacity: 1; }
             70% { transform: translateY(70vh) rotate(360deg); opacity: 1; }
-            75% { transform: scale(3); opacity: 0.8; filter: brightness(2); }
-            100% { transform: scale(6); opacity: 0; }
+            75% { transform: scale(4); opacity: 0.9; filter: brightness(2.5); }
+            100% { transform: scale(9); opacity: 0; }
         }
 
-        @keyframes flyAcross {
-            0% { transform: translateX(-100px); opacity: 1; }
-            100% { transform: translateX(110vw); opacity: 1; }
+        /* Flight path with banking, tilting, and bobbing motion */
+        @keyframes bankAndFly {
+            0% { transform: translateX(-150px) translateY(0px) rotate(-15deg); opacity: 1; }
+            25% { transform: translateX(25vw) translateY(-25px) rotate(-5deg); }
+            50% { transform: translateX(50vw) translateY(10px) rotate(10deg); }
+            75% { transform: translateX(75vw) translateY(-15px) rotate(-5deg); }
+            100% { transform: translateX(110vw) translateY(0px) rotate(-15deg); opacity: 1; }
         }
 
         @keyframes eggDrop {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            70% { transform: translateY(50vh) scale(1); opacity: 1; }
-            75% { transform: translateY(50vh) scale(4); opacity: 0.9; filter: brightness(2.5); }
-            100% { transform: translateY(50vh) scale(7); opacity: 0; }
+            0% { transform: translateY(0) scale(1.5); opacity: 1; }
+            70% { transform: translateY(50vh) scale(1.5); opacity: 1; }
+            75% { transform: translateY(50vh) scale(6); opacity: 0.9; filter: brightness(3); }
+            100% { transform: translateY(50vh) scale(12); opacity: 0; }
         }
 
         .burger-grenade {
             position: absolute;
-            font-size: 35px;
+            font-size: 70px;
             animation: fallAndExplode 1.2s ease-in forwards;
         }
 
         .flying-chicken {
             position: absolute;
-            font-size: 35px;
-            animation: flyAcross 2s linear forwards;
+            font-size: 85px;
+            animation: bankAndFly 2s cubic-bezier(0.37, 0, 0.63, 1) forwards;
+            /* Flip horizontal so it faces the direction of flight */
+            transform: scaleX(-1); 
         }
 
         .exploding-egg {
             position: absolute;
-            font-size: 25px;
+            font-size: 60px;
             animation: eggDrop 1.2s ease-in forwards;
         }
     </style>
@@ -341,15 +347,14 @@
             fxLayer.innerHTML = '';
 
             if (faction === 'rons') {
-                out.innerText = "💥 ENLISTED WITH RON'S BURGERS! BURGER GRENADES DEPLOYED!";
+                out.innerText = "💥 ENLISTED WITH RON'S BURGERS! GIGANTIC BURGER GRENADES DEPLOYED!";
                 
-                // Drop multiple burger grenades across the screen
                 for (let i = 0; i < 6; i++) {
                     setTimeout(() => {
                         let grenade = document.createElement('div');
                         grenade.className = 'burger-grenade';
                         grenade.innerHTML = '🍔🔥';
-                        grenade.style.left = Math.random() * 85 + 'vw';
+                        grenade.style.left = Math.random() * 80 + 'vw';
                         fxLayer.appendChild(grenade);
                         
                         setTimeout(() => grenade.remove(), 1200);
@@ -357,24 +362,22 @@
                 }
 
             } else {
-                out.innerText = "🚁 ENLISTED WITH GENERAL'S CHICKEN! CHICKEN BOMBERS INCOMING!";
+                out.innerText = "🚁 ENLISTED WITH GENERAL'S CHICKEN! TACTICAL CHICKEN BOMBERS INCOMING!";
                 
-                // Fly chickens across the screen dropping exploding eggs
                 for (let i = 0; i < 5; i++) {
                     setTimeout(() => {
                         let chicken = document.createElement('div');
                         chicken.className = 'flying-chicken';
-                        chicken.innerHTML = '🐔🛸';
-                        let topPos = Math.random() * 50 + 10;
+                        // Using a running/flying bird icon paired with a jet stream for high-speed flight feel
+                        chicken.innerHTML = '🐓💨'; 
+                        let topPos = Math.random() * 45 + 10;
                         chicken.style.top = topPos + 'vh';
                         fxLayer.appendChild(chicken);
 
-                        // Drop an egg mid-flight that explodes
                         setTimeout(() => {
                             let egg = document.createElement('div');
                             egg.className = 'exploding-egg';
                             egg.innerHTML = '🥚💥';
-                            // Drop it roughly where the chicken is
                             egg.style.left = (i * 18 + 10) + 'vw';
                             egg.style.top = (topPos + 10) + 'vh';
                             fxLayer.appendChild(egg);
