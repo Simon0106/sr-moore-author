@@ -46,12 +46,16 @@
             border: 6px ridge #ffff00;
             box-shadow: 8px 8px 0px #000000;
         }
-        /* Blink effect */
-        .blink {
-            animation: blinker 1s linear infinite;
+        /* Retro 8-bit image filter for author photo */
+        .pixelated-photo {
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            filter: contrast(120%) brightness(110%);
         }
-        @keyframes blinker {
-            50% { opacity: 0; }
+        /* Remove background from publisher logo using blend mode / white threshold */
+        .transparent-logo {
+            mix-blend-mode: multiply;
+            background-color: transparent !important;
         }
     </style>
 </head>
@@ -69,7 +73,7 @@
         
         <!-- Header / Logo Area -->
         <header class="text-center border-b-8 border-dashed border-red-600 pb-6 mb-6">
-            <div class="inline-block bg-yellow-300 border-4 border-black px-4 py-1 font-bold text-xs uppercase mb-2 animate-bounce">
+            <div class="inline-block bg-yellow-300 border-4 border-black px-4 py-1 font-bold text-xs uppercase mb-2">
                 ⭐ BEST VIEWED IN NETSCAPE NAVIGATOR 4.0 AT 800x600 RESOLUTION ⭐
             </div>
             <h1 class="retro-title text-4xl sm:text-6xl text-red-600 drop-shadow-[4px_4px_0px_#000] uppercase my-2">
@@ -90,7 +94,7 @@
             </nav>
         </header>
 
-        <!-- Under Construction GIF Warning -->
+        <!-- Warning Banner -->
         <div class="bg-red-100 border-4 border-red-500 p-3 mb-8 text-center flex items-center justify-center gap-3">
             <span class="text-2xl">⚠️</span>
             <span class="font-bold text-red-700 text-sm sm:text-base">WARNING: FRONT LINES ARE ACTIVE. PROMPTS & MENU SUPREMACY IN EFFECT!</span>
@@ -103,7 +107,7 @@
                 <div class="border-4 border-black p-2 bg-white shadow-[4px_4px_0px_#000]">
                     <img src="bookcover.png" alt="Burger Wars Cover" class="w-full max-w-[280px] h-auto">
                 </div>
-                <div class="mt-3 bg-red-600 text-white font-bold px-3 py-1 text-xs border-2 border-black blink">
+                <div class="mt-3 bg-red-600 text-white font-bold px-3 py-1 text-xs border-2 border-black">
                     AVAILABLE NOW IN THE UK!
                 </div>
             </div>
@@ -249,8 +253,10 @@
         <div id="author" class="bg-white border-4 border-black p-6 mb-10 shadow-[6px_6px_0px_#000]">
             <div class="flex flex-col md:flex-row gap-6 items-center">
                 <div class="text-center space-y-3">
-                    <img src="S.RMooreprofile.png" alt="S.R. Moore" class="w-36 h-36 border-4 border-black rounded-full object-cover mx-auto">
-                    <img src="Publisher-logo.png" alt="I.R. Onic Publishers" class="w-24 border-2 border-black mx-auto p-1 bg-white">
+                    <!-- 8-Bit Pixelated Author Photo -->
+                    <img src="S.RMooreprofile.png" alt="S.R. Moore" class="w-36 h-36 border-4 border-black rounded-none object-cover mx-auto pixelated-photo">
+                    <!-- Clean Publisher Logo -->
+                    <img src="Publisher-logo.png" alt="I.R. Onic Publishers" class="w-24 border-2 border-black mx-auto p-1 bg-white transparent-logo">
                 </div>
                 <div class="space-y-3">
                     <h2 class="retro-title text-2xl text-red-600">ABOUT THE AUTHOR: S.R. MOORE</h2>
@@ -264,13 +270,14 @@
             </div>
         </div>
 
-        <!-- 90s Webmaster Mailing List & Hit Counter Footer -->
+        <!-- 90s Substack Mailing List & Hit Counter Footer -->
         <footer class="text-center border-t-8 border-dashed border-red-600 pt-6 space-y-4">
             <div class="bg-black text-white p-4 max-w-md mx-auto border-2 border-yellow-300">
-                <p class="retro-font text-xl text-yellow-300 mb-2">JOIN THE GRILLER ARMY MAILING LIST</p>
-                <form onsubmit="alert('Enlisted! Check your inbox for your free prequel story!'); return false;" class="flex gap-2">
-                    <input type="email" placeholder="Your email address..." required class="px-2 py-1 text-black text-xs w-full font-mono">
-                    <button type="submit" class="btn-90s text-xs font-bold px-3 py-1 bg-red-600 text-white">JOIN</button>
+                <p class="retro-font text-xl text-yellow-300 mb-2">JOIN THE GRILLER ARMY ON SUBSTACK</p>
+                <!-- Direct Substack Link Form -->
+                <form action="https://substack.com/@srmoore1" method="get" target="_blank" class="flex gap-2">
+                    <input type="email" name="email" placeholder="Your email address..." required class="px-2 py-1 text-black text-xs w-full font-mono">
+                    <button type="submit" class="btn-90s text-xs font-bold px-3 py-1 bg-red-600 text-white">SUBSCRIBE</button>
                 </form>
             </div>
 
