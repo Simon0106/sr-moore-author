@@ -71,9 +71,15 @@
         }
 
         @keyframes flyAcross {
-            0% { transform: translateX(-100px) translateY(0); opacity: 1; }
-            50% { transform: translateX(50vw) translateY(-30px); }
-            100% { transform: translateX(110vw) translateY(20px); opacity: 1; }
+            0% { transform: translateX(-100px); opacity: 1; }
+            100% { transform: translateX(110vw); opacity: 1; }
+        }
+
+        @keyframes eggDrop {
+            0% { transform: translateY(0) scale(1); opacity: 1; }
+            70% { transform: translateY(50vh) scale(1); opacity: 1; }
+            75% { transform: translateY(50vh) scale(4); opacity: 0.9; filter: brightness(2.5); }
+            100% { transform: translateY(50vh) scale(7); opacity: 0; }
         }
 
         .burger-grenade {
@@ -82,10 +88,16 @@
             animation: fallAndExplode 1.2s ease-in forwards;
         }
 
-        .chicken-drone {
+        .flying-chicken {
             position: absolute;
-            font-size: 30px;
+            font-size: 35px;
             animation: flyAcross 2s linear forwards;
+        }
+
+        .exploding-egg {
+            position: absolute;
+            font-size: 25px;
+            animation: eggDrop 1.2s ease-in forwards;
         }
     </style>
 </head>
@@ -246,7 +258,7 @@
                     </div>
                 </div>
 
-                <!-- Bookmark / Vinyl Stickers -->
+                <!-- Vinyl Sticker -->
                 <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between">
                     <div>
                         <span class="bg-black text-white text-[10px] font-bold px-2 py-0.5">GEAR</span>
@@ -340,26 +352,38 @@
                         grenade.style.left = Math.random() * 85 + 'vw';
                         fxLayer.appendChild(grenade);
                         
-                        // Clean up element after animation finishes
                         setTimeout(() => grenade.remove(), 1200);
                     }, i * 150);
                 }
 
             } else {
-                out.innerText = "🚁 ENLISTED WITH GENERAL'S CHICKEN! CHICKEN DRONES INCOMING!";
+                out.innerText = "🚁 ENLISTED WITH GENERAL'S CHICKEN! CHICKEN BOMBERS INCOMING!";
                 
-                // Fly chicken drones across the screen
+                // Fly chickens across the screen dropping exploding eggs
                 for (let i = 0; i < 5; i++) {
                     setTimeout(() => {
-                        let drone = document.createElement('div');
-                        drone.className = 'chicken-drone';
-                        drone.innerHTML = '🍗🛸';
-                        drone.style.top = (Math.random() * 70 + 10) + 'vh';
-                        fxLayer.appendChild(drone);
+                        let chicken = document.createElement('div');
+                        chicken.className = 'flying-chicken';
+                        chicken.innerHTML = '🐔🛸';
+                        let topPos = Math.random() * 50 + 10;
+                        chicken.style.top = topPos + 'vh';
+                        fxLayer.appendChild(chicken);
+
+                        // Drop an egg mid-flight that explodes
+                        setTimeout(() => {
+                            let egg = document.createElement('div');
+                            egg.className = 'exploding-egg';
+                            egg.innerHTML = '🥚💥';
+                            // Drop it roughly where the chicken is
+                            egg.style.left = (i * 18 + 10) + 'vw';
+                            egg.style.top = (topPos + 10) + 'vh';
+                            fxLayer.appendChild(egg);
+
+                            setTimeout(() => egg.remove(), 1200);
+                        }, 600);
                         
-                        // Clean up element after animation finishes
-                        setTimeout(() => drone.remove(), 2000);
-                    }, i * 200);
+                        setTimeout(() => chicken.remove(), 2000);
+                    }, i * 250);
                 }
             }
         }
