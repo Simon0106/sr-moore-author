@@ -70,13 +70,13 @@
             100% { transform: scale(9); opacity: 0; }
         }
 
-        /* Flight path with banking, tilting, and bobbing motion */
-        @keyframes bankAndFly {
-            0% { transform: translateX(-150px) translateY(0px) rotate(-15deg); opacity: 1; }
-            25% { transform: translateX(25vw) translateY(-25px) rotate(-5deg); }
-            50% { transform: translateX(50vw) translateY(10px) rotate(10deg); }
-            75% { transform: translateX(75vw) translateY(-15px) rotate(-5deg); }
-            100% { transform: translateX(110vw) translateY(0px) rotate(-15deg); opacity: 1; }
+        /* Rightward Flight path facing forward */
+        @keyframes flyRightFacing {
+            0% { transform: translateX(-180px) translateY(0px) rotate(-5deg); opacity: 1; }
+            25% { transform: translateX(25vw) translateY(-20px) rotate(5deg); }
+            50% { transform: translateX(50vw) translateY(10px) rotate(-5deg); }
+            75% { transform: translateX(75vw) translateY(-10px) rotate(3deg); }
+            100% { transform: translateX(110vw) translateY(0px) rotate(0deg); opacity: 1; }
         }
 
         @keyframes eggDrop {
@@ -92,12 +92,12 @@
             animation: fallAndExplode 1.2s ease-in forwards;
         }
 
-        .flying-chicken {
+        .metal-chicken-drone {
             position: absolute;
-            font-size: 85px;
-            animation: bankAndFly 2s cubic-bezier(0.37, 0, 0.63, 1) forwards;
-            /* Flip horizontal so it faces the direction of flight */
-            transform: scaleX(-1); 
+            font-size: 80px;
+            animation: flyRightFacing 2s linear forwards;
+            /* Metallic look using CSS filters: silver sheen, high contrast, glowing red optics */
+            filter: drop-shadow(4px 4px 0px #000) drop-shadow(0 0 8px rgba(0, 255, 255, 0.6)) contrast(150%) brightness(120%);
         }
 
         .exploding-egg {
@@ -362,17 +362,17 @@
                 }
 
             } else {
-                out.innerText = "🚁 ENLISTED WITH GENERAL'S CHICKEN! TACTICAL CHICKEN BOMBERS INCOMING!";
+                out.innerText = "🚁 ENLISTED WITH GENERAL'S CHICKEN! METAL CHICKEN COMBAT DRONES INCOMING!";
                 
                 for (let i = 0; i < 5; i++) {
                     setTimeout(() => {
-                        let chicken = document.createElement('div');
-                        chicken.className = 'flying-chicken';
-                        // Using a running/flying bird icon paired with a jet stream for high-speed flight feel
-                        chicken.innerHTML = '🐓💨'; 
+                        let drone = document.createElement('div');
+                        drone.className = 'metal-chicken-drone';
+                        // Using a robotic/satellite/jet icon combo pointing right forward
+                        drone.innerHTML = '🤖🚀'; 
                         let topPos = Math.random() * 45 + 10;
-                        chicken.style.top = topPos + 'vh';
-                        fxLayer.appendChild(chicken);
+                        drone.style.top = topPos + 'vh';
+                        fxLayer.appendChild(drone);
 
                         setTimeout(() => {
                             let egg = document.createElement('div');
@@ -385,7 +385,7 @@
                             setTimeout(() => egg.remove(), 1200);
                         }, 600);
                         
-                        setTimeout(() => chicken.remove(), 2000);
+                        setTimeout(() => drone.remove(), 2000);
                     }, i * 250);
                 }
             }
