@@ -192,3 +192,219 @@
                 <div class="flex flex-wrap gap-3 pt-2">
                     <a href="#store" class="btn-90s bg-red-600 text-white font-bold px-6 py-3 text-base uppercase hover:bg-red-700 flex items-center gap-2">
                         🛒 Buy Paperback — £9.99
+                    </a>
+                    <a href="https://www.goodreads.com/book/show/257059209-burger-wars" target="_blank" class="btn-90s bg-yellow-300 font-bold px-4 py-3 text-sm uppercase">
+                        ⭐ Goodreads Page
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Faction War Section -->
+        <div id="factions" class="bg-black text-white p-6 border-4 border-red-600 mb-10 shadow-[6px_6px_0px_#ffff00]">
+            <h2 class="retro-title text-xl sm:text-2xl text-yellow-300 text-center mb-2">*** PICK YOUR SIDE ***</h2>
+            <p class="text-center text-xs font-mono text-gray-400 mb-6">ENLIST YOUR LOYALTY IN THE WAR FOR MENU SUPREMACY</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Ron's Burgers -->
+                <div class="bg-gray-900 border-4 border-red-600 p-4 text-center">
+                    <h3 class="retro-title text-lg text-red-500 mb-2">RON'S BURGERS</h3>
+                    <p class="text-yellow-300 font-bold text-xs mb-3">"GRILL FOR FREEDOM"</p>
+                    <p class="text-xs text-gray-300 mb-4">Flame-grilled discipline and mandatory smiling through the corporate war zone.</p>
+                    <button onclick="vote('rons')" class="btn-90s bg-red-600 text-white font-bold px-4 py-2 text-xs uppercase w-full">
+                        Enlist with Ron's Burgers
+                    </button>
+                </div>
+
+                <!-- General's Chicken -->
+                <div class="bg-gray-900 border-4 border-yellow-400 p-4 text-center">
+                    <h3 class="retro-title text-lg text-yellow-400 mb-2">GENERAL'S CHICKEN</h3>
+                    <p class="text-yellow-300 font-bold text-xs mb-3">"DEEP-FRIED JUSTICE"</p>
+                    <p class="text-xs text-gray-300 mb-4">Crispy armor plating and pressure-fried tactical dominance.</p>
+                    <button onclick="vote('generals')" class="btn-90s bg-yellow-400 text-black font-bold px-4 py-2 text-xs uppercase w-full">
+                        Enlist with General's Chicken
+                    </button>
+                </div>
+            </div>
+            <p id="vote-output" class="text-center text-yellow-300 font-mono text-xs mt-4 h-4"></p>
+            
+            <div class="mt-6 border-2 border-gray-700 p-3 text-center">
+                <img src="pickyourside.png" alt="Pick Your Side Poster" class="max-w-xs mx-auto border-2 border-white">
+            </div>
+        </div>
+
+        <!-- Direct Buy & Merch Section -->
+        <div id="store" class="bg-red-50 p-6 border-4 border-black mb-10 shadow-[6px_6px_0px_#000]">
+            <h2 class="retro-title text-xl sm:text-2xl text-red-600 text-center mb-6">🍔 MERCH & DIRECT ORDER 🍟</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Paperback -->
+                <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between">
+                    <div>
+                        <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5">PHYSICAL</span>
+                        <h3 class="font-bold text-lg mt-2">Paperback</h3>
+                        <p class="text-xs text-gray-600 mt-1">Available now on Amazon with fast delivery.</p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="retro-font text-2xl font-bold text-red-600 mb-2">£9.99</p>
+                        <a href="https://books2read.com/burgerwars" target="_blank" class="btn-90s block w-full py-2 font-bold text-xs uppercase bg-yellow-300 hover:bg-yellow-400">Buy on Amazon</a>
+                    </div>
+                </div>
+
+                <!-- eBook Edition -->
+                <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between">
+                    <div>
+                        <span class="bg-yellow-400 text-black text-[10px] font-bold px-2 py-0.5">KINDLE</span>
+                        <h3 class="font-bold text-lg mt-2">eBook Edition</h3>
+                        <p class="text-xs text-gray-600 mt-1">Kindle Exclusive & Kindle Unlimited ready.</p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="retro-font text-2xl font-bold text-red-600 mb-2">£2.99</p>
+                        <a href="https://books2read.com/burgerwars" target="_blank" class="btn-90s block w-full py-2 font-bold text-xs uppercase bg-amber-400 hover:bg-amber-500">Buy on Amazon</a>
+                    </div>
+                </div>
+
+                <!-- Loyalty Card -->
+                <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between">
+                    <div>
+                        <span class="bg-black text-white text-[10px] font-bold px-2 py-0.5">PROP</span>
+                        <h3 class="font-bold text-lg mt-2">Loyalty Card</h3>
+                        <p class="text-xs text-gray-600 mt-1">"Free Value Meals for Life" collectible card.</p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="retro-font text-2xl font-bold text-red-600 mb-2">£2.50</p>
+                        <button onclick="alert('Added Loyalty Card to order!')" class="btn-90s w-full py-2 font-bold text-xs uppercase bg-yellow-300">Add to Order</button>
+                    </div>
+                </div>
+
+                <!-- Vinyl Sticker -->
+                <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between">
+                    <div>
+                        <span class="bg-black text-white text-[10px] font-bold px-2 py-0.5">GEAR</span>
+                        <h3 class="font-bold text-lg mt-2">Vinyl Sticker</h3>
+                        <p class="text-xs text-gray-600 mt-1">Weatherproof tactical faction sticker.</p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="retro-font text-2xl font-bold text-red-600 mb-2">£2.00</p>
+                        <button onclick="alert('Added Sticker to order!')" class="btn-90s w-full py-2 font-bold text-xs uppercase bg-yellow-300">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reviews Section -->
+        <div id="reviews" class="bg-yellow-200 border-4 border-black p-6 mb-10 shadow-[6px_6px_0px_#000]">
+            <h2 class="retro-title text-xl sm:text-2xl text-red-600 text-center mb-6">⭐ REVIEWS FROM THE FRONTLINE ⭐</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white border-2 border-black p-4 text-xs italic">
+                    "Black Mirror meets the drive-thru lane."
+                    <div class="font-bold non-italic mt-2 text-red-600">— Dorset Echo</div>
+                </div>
+                <div class="bg-white border-2 border-black p-4 text-xs italic">
+                    "Mixing fast-food satire, dystopian warfare, absurd humor, and plenty of action."
+                    <div class="font-bold non-italic mt-2 text-red-600">— Tony King</div>
+                </div>
+                <div class="bg-white border-2 border-black p-4 text-xs italic">
+                    "Funny, filthy, greasy, and sadder than I expected. Loved it!"
+                    <div class="font-bold non-italic mt-2 text-red-600">— Anna (Goodreads)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Author Section -->
+        <div id="author" class="bg-white border-4 border-black p-6 mb-10 shadow-[6px_6px_0px_#000]">
+            <div class="flex flex-col md:flex-row gap-6 items-center">
+                <div class="text-center space-y-3">
+                    <img src="S.RMooreprofile.png" alt="S.R. Moore" class="w-36 h-36 border-4 border-black rounded-none object-cover mx-auto pixelated-photo">
+                    <img src="Publisher-logo.png" alt="I.R. Onic Publishers" class="w-36 sm:w-44 mx-auto object-contain">
+                </div>
+                <div class="space-y-3">
+                    <h2 class="retro-title text-xl sm:text-2xl text-red-600">ABOUT THE AUTHOR: S.R. MOORE</h2>
+                    <p class="text-xs sm:text-sm leading-relaxed">
+                        S.R. Moore is a literary titan and proud owner of at least three books. A decorated veteran of the fast-food trenches, Moore is a three-time McDonald's Employee of the Month winner—an honour that provided both invaluable first-hand research into corporate burger culture and a deep, unshakeable respect for the soft-serve machine.
+                    </p>
+                    <p class="text-xs sm:text-sm leading-relaxed">
+                        <em>Burger Wars</em> is Moore's debut novel, written under the strict belief that customer service should always be taken to its absolute, chaotic extreme.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Official Substack Embed Footer -->
+        <footer class="text-center border-t-8 border-dashed border-red-600 pt-6 space-y-4">
+            <div class="bg-black text-white p-4 max-w-lg mx-auto border-2 border-yellow-300 flex flex-col items-center">
+                <p class="retro-font text-xl text-yellow-300 mb-3">JOIN THE GRILLER ARMY ON SUBSTACK</p>
+                <!-- Substack Widget Embed -->
+                <iframe src="https://srmooreverse.substack.com/embed?transparent=1" width="100%" height="160" style="border: 0; background: transparent;" frameborder="0" scrolling="no"></iframe>
+            </div>
+
+            <!-- Authentic 90s Web Counter -->
+            <div class="inline-block bg-gray-200 border-2 border-black px-4 py-2 font-mono text-xs font-bold">
+                VISITOR COUNT: <span class="bg-black text-green-400 px-2 py-0.5 text-sm tracking-widest">0048291</span>
+            </div>
+
+            <p class="text-xs font-bold text-gray-600">
+                &copy; 2026 S.R. Moore. Published by I.R. Onic Publishers. All Rights Reserved.
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- Animation Trigger Logic -->
+    <script>
+        function triggerGroundExplosion(xPos) {
+            const fxLayer = document.getElementById('fx-layer');
+            const boom = document.createElement('div');
+            boom.className = 'ground-explosion';
+            boom.innerHTML = '💥🔥';
+            boom.style.left = xPos + 'px';
+            fxLayer.appendChild(boom);
+            setTimeout(() => boom.remove(), 600);
+        }
+
+        function vote(faction) {
+            const out = document.getElementById('vote-output');
+            const fxLayer = document.getElementById('fx-layer');
+            fxLayer.innerHTML = '';
+
+            if (faction === 'rons') {
+                out.innerText = "💥 ENLISTED WITH RON'S BURGERS! BURGER BOMBARDMENT INITIALIZED!";
+                
+                for (let i = 0; i < 6; i++) {
+                    setTimeout(() => {
+                        const burger = document.createElement('div');
+                        burger.className = 'burger-falling';
+                        burger.innerHTML = '🍔';
+                        const targetLeft = Math.random() * (window.innerWidth - 80);
+                        burger.style.left = targetLeft + 'px';
+                        fxLayer.appendChild(burger);
+
+                        setTimeout(() => {
+                            burger.remove();
+                            triggerGroundExplosion(targetLeft);
+                        }, 900);
+                    }, i * 180);
+                }
+
+            } else {
+                out.innerText = "🍗 ENLISTED WITH GENERAL'S CHICKEN! DEEP-FRIED STRIKE INCOMING!";
+                
+                for (let i = 0; i < 6; i++) {
+                    setTimeout(() => {
+                        const chicken = document.createElement('div');
+                        chicken.className = 'chicken-flying';
+                        chicken.innerHTML = '🍗';
+                        fxLayer.appendChild(chicken);
+
+                        setTimeout(() => {
+                            chicken.remove();
+                            const targetLeft = window.innerWidth * 0.85;
+                            triggerGroundExplosion(targetLeft - 30);
+                        }, 1100);
+                    }, i * 200);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
