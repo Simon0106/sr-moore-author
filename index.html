@@ -7,7 +7,7 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts for 90s Diner & Arcade Vibes -->
-    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Comic+Neue:wght@700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=VT323&family=Comic+Neue:wght@700&family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -25,6 +25,9 @@
         }
         .retro-font {
             font-family: 'VT323', monospace;
+        }
+        .space-mono {
+            font-family: 'Space Mono', monospace;
         }
         .btn-90s {
             border-top: 4px solid #ffffff;
@@ -167,7 +170,8 @@
             <nav class="mt-6 flex flex-wrap justify-center gap-2">
                 <a href="#book" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200">The Book</a>
                 <a href="#squad" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200">The Squad</a>
-                <a href="#arcade-section" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200 bg-red-100 text-red-700">🎮 Play Arcade</a>
+                <a href="#arcade-section" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200 bg-red-100 text-red-700">🎮 Side-Scroller</a>
+                <a href="#poole-strategy" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200 bg-yellow-100 text-amber-900">🗺️ Poole Strategy Game</a>
                 <a href="#factions" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200">Pick Your Side</a>
                 <a href="#store" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200 text-red-700">Buy Direct (£9.99)</a>
                 <a href="#author" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200">About Author</a>
@@ -216,63 +220,63 @@
             </div>
         </div>
 
-       <!-- The Squad Section -->
-<div id="squad" class="bg-white border-4 border-black p-6 mb-10 shadow-[6px_6px_0px_#000]">
-    <h2 class="retro-title text-xl sm:text-2xl text-red-600 text-center mb-6">*** MEET THE SQUAD ***</h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-        
-        <!-- Marcus -->
-        <div class="bg-red-50 border-2 border-black p-4 flex flex-col items-center">
-            <div class="w-12 h-12 mb-2 flex items-center justify-center">
-                <svg width="24" height="24" viewBox="0 0 16 16" style="image-rendering: pixelated;">
-                    <rect x="5" y="2" width="6" height="5" fill="#f5d0b1"/>
-                    <rect x="5" y="1" width="6" height="2" fill="#8b4513"/>
-                    <rect x="4" y="7" width="8" height="5" fill="#dc2626"/>
-                    <text x="6" y="11" font-size="5" fill="white" font-weight="bold">R</text>
-                    <rect x="6" y="12" width="4" height="4" fill="#1e293b"/>
-                    <rect x="11" y="6" width="4" height="2" fill="#64748b"/>
-                </svg>
+        <!-- The Squad Section -->
+        <div id="squad" class="bg-white border-4 border-black p-6 mb-10 shadow-[6px_6px_0px_#000]">
+            <h2 class="retro-title text-xl sm:text-2xl text-red-600 text-center mb-6">*** MEET THE SQUAD ***</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                
+                <!-- Marcus -->
+                <div class="bg-red-50 border-2 border-black p-4 flex flex-col items-center">
+                    <div class="w-12 h-12 mb-2 flex items-center justify-center">
+                        <svg width="24" height="24" viewBox="0 0 16 16" style="image-rendering: pixelated;">
+                            <rect x="5" y="2" width="6" height="5" fill="#f5d0b1"/>
+                            <rect x="5" y="1" width="6" height="2" fill="#8b4513"/>
+                            <rect x="4" y="7" width="8" height="5" fill="#dc2626"/>
+                            <text x="6" y="11" font-size="5" fill="white" font-weight="bold">R</text>
+                            <rect x="6" y="12" width="4" height="4" fill="#1e293b"/>
+                            <rect x="11" y="6" width="4" height="2" fill="#64748b"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-red-600">Marcus</h3>
+                    <p class="text-xs text-gray-700 mt-2">The man out of time, equipped with a spatulated rifle, fighting under the Red 'R' banner of Ron's Burgers.</p>
+                </div>
+
+                <!-- Trevor -->
+                <div class="bg-yellow-50 border-2 border-black p-4 flex flex-col items-center">
+                    <div class="w-12 h-12 mb-2 flex items-center justify-center">
+                        <svg width="24" height="24" viewBox="0 0 16 16" style="image-rendering: pixelated;">
+                            <rect x="5" y="2" width="6" height="5" fill="#5c3826"/>
+                            <rect x="5" y="1" width="6" height="2" fill="#111111"/>
+                            <rect x="3" y="3" width="2" height="3" fill="#334155"/>
+                            <rect x="4" y="7" width="8" height="5" fill="#ca8a04"/>
+                            <rect x="6" y="12" width="4" height="4" fill="#1e293b"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-amber-700">Trevor</h3>
+                    <p class="text-xs text-gray-700 mt-2">Marcus's loyal friend, with a drive-thru headset permanently fused to his skull for frontline comms.</p>
+                </div>
+
+                <!-- Vera -->
+                <div class="bg-pink-50 border-2 border-black p-4 flex flex-col items-center">
+                    <div class="w-12 h-12 mb-2 flex items-center justify-center">
+                        <svg width="24" height="24" viewBox="0 0 16 16" style="image-rendering: pixelated;">
+                            <rect x="5" y="2" width="6" height="5" fill="#f5d0b1"/>
+                            <rect x="4" y="1" width="8" height="3" fill="#ec4899"/>
+                            <rect x="4" y="7" width="8" height="5" fill="#db2777"/>
+                            <rect x="6" y="12" width="4" height="4" fill="#1e293b"/>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg text-pink-600">Vera</h3>
+                    <p class="text-xs text-gray-700 mt-2">Fierce Crew Trainer rocking iconic bright pink hair and dispensing tactical ration updates.</p>
+                </div>
+
             </div>
-            <h3 class="font-bold text-lg text-red-600">Marcus</h3>
-            <p class="text-xs text-gray-700 mt-2">The man out of time, equipped with a spatulated rifle, fighting under the Red 'R' banner of Ron's Burgers.</p>
         </div>
 
-        <!-- Trevor -->
-        <div class="bg-yellow-50 border-2 border-black p-4 flex flex-col items-center">
-            <div class="w-12 h-12 mb-2 flex items-center justify-center">
-                <svg width="24" height="24" viewBox="0 0 16 16" style="image-rendering: pixelated;">
-                    <rect x="5" y="2" width="6" height="5" fill="#5c3826"/>
-                    <rect x="5" y="1" width="6" height="2" fill="#111111"/>
-                    <rect x="3" y="3" width="2" height="3" fill="#334155"/>
-                    <rect x="4" y="7" width="8" height="5" fill="#ca8a04"/>
-                    <rect x="6" y="12" width="4" height="4" fill="#1e293b"/>
-                </svg>
-            </div>
-            <h3 class="font-bold text-lg text-amber-700">Trevor</h3>
-            <p class="text-xs text-gray-700 mt-2">Marcus's loyal friend, with a drive-thru headset permanently fused to his skull for frontline comms.</p>
-        </div>
-
-        <!-- Vera -->
-        <div class="bg-pink-50 border-2 border-black p-4 flex flex-col items-center">
-            <div class="w-12 h-12 mb-2 flex items-center justify-center">
-                <svg width="24" height="24" viewBox="0 0 16 16" style="image-rendering: pixelated;">
-                    <rect x="5" y="2" width="6" height="5" fill="#f5d0b1"/>
-                    <rect x="4" y="1" width="8" height="3" fill="#ec4899"/>
-                    <rect x="4" y="7" width="8" height="5" fill="#db2777"/>
-                    <rect x="6" y="12" width="4" height="4" fill="#1e293b"/>
-                </svg>
-            </div>
-            <h3 class="font-bold text-lg text-pink-600">Vera</h3>
-            <p class="text-xs text-gray-700 mt-2">Fierce Crew Trainer rocking iconic bright pink hair and dispensing tactical ration updates.</p>
-        </div>
-
-    </div>
-</div>
-
-        <!-- EMBEDDED 8-BIT ARCADE CABINET SECTION -->
+        <!-- EMBEDDED 8-BIT ARCADE CABINET SECTION (SIDE-SCROLLER) -->
         <div id="arcade-section" class="bg-black text-white p-6 border-4 border-yellow-400 mb-10 shadow-[8px_8px_0px_#dc2626]">
             <div class="text-center mb-4">
-                <h2 class="retro-title text-xl sm:text-3xl text-yellow-300 mb-2">🪙 8-BIT ARCADE CABINET 🪙</h2>
+                <h2 class="retro-title text-xl sm:text-3xl text-yellow-300 mb-2">🪙 8-BIT SIDE-SCROLLER ARCADE 🪙</h2>
                 <p class="text-xs font-mono text-gray-300">DEFEND THE UK HIGH STREET AS MARCUS AGAINST THE YELLOW-CLAD CLUCKERS!</p>
             </div>
 
@@ -310,6 +314,54 @@
                 <div class="px-4 py-2 bg-black border-t-2 border-red-600 text-[10px] sm:text-xs text-gray-400 flex justify-between font-mono">
                     <div>[← / → or A/D] MOVE | [SPACE / W] JUMP | [J or X] SHOOT PATTY</div>
                     <div class="text-yellow-400">S.R. MOORE ARCADE</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EMBEDDED POOLE HARBOUR STRATEGY GAME (DRAG-TO-SWARM) -->
+        <div id="poole-strategy" class="bg-slate-900 text-white p-6 border-4 border-yellow-400 mb-10 shadow-[8px_8px_0px_#000] space-mono">
+            <div class="text-center mb-4">
+                <h2 class="retro-title text-xl sm:text-2xl text-yellow-300 mb-2">🗺️ BURGER WARS: POOLE HARBOUR STRATEGY 🗺️</h2>
+                <p class="text-xs text-slate-400">Drag neon supply lines from your Grillers to swarm and conquer enemy stores across Dorset!</p>
+            </div>
+
+            <!-- Strategy Game Frame -->
+            <div class="max-w-[850px] mx-auto bg-slate-950 border-4 border-black rounded shadow-[6px_6px_0px_#000] overflow-hidden flex flex-col items-center justify-center relative">
+                
+                <!-- Strategy HUD Sub-bar -->
+                <div class="w-full bg-slate-900 px-4 py-2 border-b-2 border-slate-800 flex justify-between items-center text-xs">
+                    <div class="flex gap-4 retro-title text-[10px]">
+                        <span class="text-red-500">🍔 GRILLERS: <span id="score-ron">0</span></span>
+                        <span class="text-amber-400">🍗 CLUCKERS: <span id="score-gen">0</span></span>
+                        <span class="text-emerald-400">🥗 SHADOW VEGANS: <span id="score-veg">0</span></span>
+                    </div>
+                    <button onclick="resetPooleGame()" class="btn-90s bg-red-600 text-white font-bold px-3 py-1 text-[10px] uppercase">
+                        RESET MAP
+                    </button>
+                </div>
+
+                <!-- SVG Map Arena Container -->
+                <div class="relative w-full h-[450px]">
+                    <svg id="poole-svg" class="w-full h-full cursor-crosshair" viewBox="0 0 1000 700">
+                        <!-- Poole Harbour Map Background -->
+                        <g id="poole-map-bg">
+                            <rect width="1000" height="700" fill="#0f172a"/>
+                            <path d="M 50 650 Q 180 500 250 480 T 450 450 T 600 520 T 750 650 Z" fill="#0284c7" opacity="0.35"/>
+                            <path d="M 50 650 Q 180 500 250 480 T 450 450 T 600 520 T 750 650 Z" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="6"/>
+                            <path d="M 350 460 Q 340 320 420 300 T 460 420 Z" fill="#0284c7" opacity="0.4"/>
+                            <path d="M 460 560 Q 520 540 580 570 T 500 620 Z" fill="#1e293b" stroke="#334155" stroke-width="2"/>
+                            <text x="520" y="580" fill="#64748b" font-size="10" font-family="monospace" text-anchor="middle">Brownsea Island</text>
+                        </g>
+                        <!-- Roads, Units, and Custom Restaurant Nodes rendered dynamically -->
+                        <g id="poole-road-layer"></g>
+                        <g id="poole-unit-layer"></g>
+                        <g id="poole-node-layer"></g>
+                    </svg>
+                </div>
+
+                <!-- Strategy Footer instructions -->
+                <div class="w-full bg-black px-4 py-2 border-t-2 border-slate-800 text-[10px] text-yellow-300 text-center font-mono">
+                    TIP: DRAG MOUSE FROM YOUR 'R' GRILLER STORES TO ADJACENT CLUCKER OR NEUTRAL STORES TO SWARM THEM!
                 </div>
             </div>
         </div>
@@ -460,7 +512,7 @@
 
     </div>
 
-    <!-- JavaScript for Site Interactivity & Arcade Engine -->
+    <!-- JavaScript for Site Interactivity & Arcade Engines -->
     <script>
         // Custom non-blocking message box replacing alert()
         function alertBox(msg) {
@@ -527,7 +579,7 @@
             }
         }
 
-        // --- EMBEDDED ARCADE ENGINE ---
+        // --- EMBEDDED ARCADE ENGINE (SIDE-SCROLLER) ---
         const canvas = document.getElementById('arcadeCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -574,7 +626,6 @@
         let player = { x: 80, y: 300, width: 32, height: 48, vx: 0, vy: 0, speed: 4, jumpPower: -9, grounded: false, facing: 'right' };
         let arcadeBullets = [];
         let arcadeEnemies = [];
-        let arcadeParticles = [];
         let arcadeBuildings = [];
 
         let keys = {};
@@ -605,7 +656,7 @@
             arcadeState = 'PLAYING';
             arcadeScore = 0; arcadeLives = 3; arcadeWave = 1;
             player.x = 80; player.y = 300;
-            arcadeBullets = []; arcadeEnemies = []; arcadeParticles = [];
+            arcadeBullets = []; arcadeEnemies = [];
             initArcadeBuildings();
             document.getElementById('arcade-overlay').classList.add('hidden');
         }
@@ -633,7 +684,6 @@
                 if (arcadeBullets[i].x > canvas.width || arcadeBullets[i].x < 0) arcadeBullets.splice(i, 1);
             }
 
-            // Spawn Yellow-clad Cluckers
             if (Math.random() < 0.025 + (arcadeWave * 0.004)) {
                 arcadeEnemies.push({
                     x: canvas.width, y: 320 - 40, width: 28, height: 40,
@@ -683,7 +733,6 @@
         function drawArcade() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Smoggy UK Skyline
             let grad = ctx.createLinearGradient(0, 0, 0, 320);
             grad.addColorStop(0, '#312e81'); grad.addColorStop(1, '#7f1d1d');
             ctx.fillStyle = grad; ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -700,21 +749,17 @@
                 }
             });
 
-            // Ground Street
             ctx.fillStyle = '#111827'; ctx.fillRect(0, 320, canvas.width, 80);
             ctx.fillStyle = '#dc2626'; ctx.fillRect(0, 320, canvas.width, 5);
 
-            // HUD Banner (Trevor & Vera)
             ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(10, 10, 240, 30);
             ctx.strokeStyle = '#facc15'; ctx.lineWidth = 1; ctx.strokeRect(10, 10, 240, 30);
             ctx.fillStyle = '#facc15'; ctx.font = '7px "Press Start 2P"';
             ctx.fillText("TREVOR & VERA: 'HOLD THE LINE!'", 16, 28);
 
-            // Bullets
             ctx.fillStyle = '#fbbf24';
             arcadeBullets.forEach(b => ctx.fillRect(b.x, b.y, b.width, b.height));
 
-            // Player Marcus (Red Ron's Uniform with 'R')
             ctx.fillStyle = '#dc2626'; ctx.fillRect(player.x, player.y + 14, player.width, 24);
             ctx.fillStyle = '#fbcfe8'; ctx.fillRect(player.x + 6, player.y, 20, 14);
             ctx.fillStyle = '#ffffff'; ctx.font = 'bold 9px sans-serif'; ctx.fillText("R", player.x + 11, player.y + 28);
@@ -722,7 +767,6 @@
             if (player.facing === 'right') ctx.fillRect(player.x + 24, player.y + 20, 16, 5);
             else ctx.fillRect(player.x - 10, player.y + 20, 16, 5);
 
-            // Enemies: Yellow-clad Cluckers
             arcadeEnemies.forEach(en => {
                 ctx.fillStyle = '#eab308'; ctx.fillRect(en.x, en.y + 10, en.width, en.height - 10);
                 ctx.fillStyle = '#fef08a'; ctx.fillRect(en.x + 2, en.y, 24, 12);
@@ -736,6 +780,304 @@
             requestAnimationFrame(arcadeLoop);
         }
         requestAnimationFrame(arcadeLoop);
+
+
+        // --- EMBEDDED POOLE HARBOUR STRATEGY GAME ENGINE ---
+        const pooleNodes = [
+            { id: 1, name: 'Poole Quay', x: 420, y: 460, owner: 'ron', troops: 30, maxTroops: 60, genRate: 1.2 },
+            { id: 2, name: 'Old Town', x: 450, y: 390, owner: 'neutral', troops: 15, maxTroops: 30, genRate: 0.6 },
+            { id: 3, name: 'Holes Bay Park', x: 380, y: 310, owner: 'ron', troops: 20, maxTroops: 45, genRate: 0.8 },
+            { id: 4, name: 'Upton Cross', x: 230, y: 260, owner: 'neutral', troops: 15, maxTroops: 35, genRate: 0.6 },
+            { id: 5, name: 'Hamworthy Port', x: 270, y: 480, owner: 'general', troops: 25, maxTroops: 50, genRate: 1.0 },
+            { id: 6, name: 'Oakdale Hub', x: 550, y: 320, owner: 'neutral', troops: 20, maxTroops: 40, genRate: 0.7 },
+            { id: 7, name: 'Lower Parkstone', x: 680, y: 340, owner: 'vegan', troops: 35, maxTroops: 70, genRate: 1.2 },
+            { id: 8, name: 'Branksome Retail', x: 820, y: 290, owner: 'general', troops: 30, maxTroops: 60, genRate: 1.1 },
+            { id: 9, name: 'Canford Cliffs', x: 780, y: 470, owner: 'vegan', troops: 35, maxTroops: 70, genRate: 1.2 },
+            { id: 10, name: 'Sandbanks Peninsula', x: 670, y: 570, owner: 'neutral', troops: 35, maxTroops: 70, genRate: 1.5 },
+        ];
+
+        const pooleConnections = [
+            [1, 2], [1, 5], [2, 3], [2, 6], [3, 4], 
+            [3, 6], [5, 4], [6, 7], [7, 8], [7, 9], 
+            [8, 9], [9, 10], [1, 10]
+        ];
+
+        let pooleTravelingUnits = [];
+        let pooleDraggingNode = null;
+        let pooleMousePos = { x: 0, y: 0 };
+
+        const pooleFactions = {
+            ron: { color: '#dc2626', roof: '#991b1b', name: "Ron's Burgers" },
+            general: { color: '#d97706', roof: '#92400e', name: "General's Chicken" },
+            vegan: { color: '#047857', roof: '#022c22', name: "Militant Vegans" },
+            neutral: { color: '#475569', roof: '#334155', name: "Independent Site" }
+        };
+
+        const pooleSvg = document.getElementById('poole-svg');
+
+        function initPooleRoads() {
+            const roadLayer = document.getElementById('poole-road-layer');
+            roadLayer.innerHTML = '';
+            pooleConnections.forEach(([fromId, toId]) => {
+                const from = pooleNodes.find(n => n.id === fromId);
+                const to = pooleNodes.find(n => n.id === toId);
+                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.setAttribute("x1", from.x);
+                line.setAttribute("y1", from.y);
+                line.setAttribute("x2", to.x);
+                line.setAttribute("y2", to.y);
+                line.setAttribute("stroke", "#1e293b");
+                line.setAttribute("stroke-width", "6");
+                line.setAttribute("stroke-dasharray", "6");
+                roadLayer.appendChild(line);
+            });
+        }
+
+        pooleSvg.addEventListener('mousedown', (e) => {
+            const pt = pooleSvg.createSVGPoint();
+            pt.x = e.clientX; pt.y = e.clientY;
+            const svgP = pt.matrixTransform(pooleSvg.getScreenCTM().inverse());
+            
+            pooleNodes.forEach(n => {
+                const dx = n.x - svgP.x;
+                const dy = n.y - svgP.y;
+                if (Math.sqrt(dx*dx + dy*dy) < 40 && n.owner === 'ron') {
+                    pooleDraggingNode = n;
+                }
+            });
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            const pt = pooleSvg.createSVGPoint();
+            pt.x = e.clientX; pt.y = e.clientY;
+            const svgP = pt.matrixTransform(pooleSvg.getScreenCTM().inverse());
+            pooleMousePos = { x: svgP.x, y: svgP.y };
+        });
+
+        window.addEventListener('mouseup', (e) => {
+            if (!pooleDraggingNode) return;
+            const pt = pooleSvg.createSVGPoint();
+            pt.x = e.clientX; pt.y = e.clientY;
+            const svgP = pt.matrixTransform(pooleSvg.getScreenCTM().inverse());
+
+            pooleNodes.forEach(target => {
+                const dx = target.x - svgP.x;
+                const dy = target.y - svgP.y;
+                if (Math.sqrt(dx*dx + dy*dy) < 40 && target.id !== pooleDraggingNode.id) {
+                    const isConnected = pooleConnections.some(([f, t]) => 
+                        (f === pooleDraggingNode.id && t === target.id) || (t === pooleDraggingNode.id && f === target.id)
+                    );
+
+                    if (isConnected && pooleDraggingNode.troops > 4) {
+                        const sendCount = Math.floor(pooleDraggingNode.troops / 2);
+                        pooleDraggingNode.troops -= sendCount;
+                        pooleTravelingUnits.push({
+                            fromX: pooleDraggingNode.x, fromY: pooleDraggingNode.y,
+                            toX: target.x, toY: target.y,
+                            progress: 0, speed: 0.015,
+                            owner: 'ron', count: sendCount, targetId: target.id
+                        });
+                    }
+                }
+            });
+            pooleDraggingNode = null;
+        });
+
+        function updatePooleGame() {
+            pooleNodes.forEach(n => {
+                if (n.owner !== 'neutral' && n.troops < n.maxTroops) {
+                    n.troops += n.genRate * 0.04;
+                }
+            });
+
+            // Cluckers (General's Chicken AI) run active attacks
+            pooleNodes.forEach(n => {
+                if (n.owner === 'general' && n.troops > 30) {
+                    const availableConns = pooleConnections.filter(([f, t]) => f === n.id || t === n.id);
+                    if (availableConns.length > 0) {
+                        const randomConn = availableConns[Math.floor(Math.random() * availableConns.length)];
+                        const targetId = randomConn[0] === n.id ? randomConn[1] : randomConn[0];
+                        const target = pooleNodes.find(node => node.id === targetId);
+                        
+                        if (target && target.owner !== n.owner) {
+                            const sendCount = Math.floor(n.troops / 2);
+                            n.troops -= sendCount;
+                            pooleTravelingUnits.push({
+                                fromX: n.x, fromY: n.y, toX: target.x, toY: target.y,
+                                progress: 0, speed: 0.012, owner: n.owner, count: sendCount, targetId: target.id
+                            });
+                        }
+                    }
+                }
+            });
+
+            pooleTravelingUnits.forEach(u => u.progress += u.speed);
+
+            pooleTravelingUnits = pooleTravelingUnits.filter(u => {
+                if (u.progress >= 1) {
+                    const target = pooleNodes.find(n => n.id === u.targetId);
+                    if (target.owner === u.owner) {
+                        target.troops += u.count;
+                    } else {
+                        target.troops -= u.count;
+                        if (target.troops < 0) {
+                            target.owner = u.owner;
+                            target.troops = Math.abs(target.troops);
+                        }
+                    }
+                    return false;
+                }
+                return true;
+            });
+
+            renderPoole();
+            requestAnimationFrame(updatePooleGame);
+        }
+
+        function drawPooleRestaurantSVG(g, n) {
+            const fac = pooleFactions[n.owner];
+
+            const shadow = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+            shadow.setAttribute("cx", n.x); shadow.setAttribute("cy", n.y + 22);
+            shadow.setAttribute("rx", "36"); shadow.setAttribute("ry", "10");
+            shadow.setAttribute("fill", "#000000"); shadow.setAttribute("opacity", "0.5");
+            g.appendChild(shadow);
+
+            const body = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            body.setAttribute("x", n.x - 34); body.setAttribute("y", n.y - 18);
+            body.setAttribute("width", "68"); body.setAttribute("height", "38");
+            body.setAttribute("rx", "4"); body.setAttribute("fill", fac.color);
+            body.setAttribute("stroke", "#000"); body.setAttribute("stroke-width", "3");
+            g.appendChild(body);
+
+            const roof = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            roof.setAttribute("d", `M ${n.x - 38} ${n.y - 18} L ${n.x} ${n.y - 32} L ${n.x + 38} ${n.y - 18} Z`);
+            roof.setAttribute("fill", fac.roof); roof.setAttribute("stroke", "#000"); roof.setAttribute("stroke-width", "3");
+            g.appendChild(roof);
+
+            if (n.owner === 'ron') {
+                const logoBox = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                logoBox.setAttribute("x", n.x - 12); logoBox.setAttribute("y", n.y - 44);
+                logoBox.setAttribute("width", "24"); logoBox.setAttribute("height", "18");
+                logoBox.setAttribute("rx", "3"); logoBox.setAttribute("fill", "#ffffff");
+                logoBox.setAttribute("stroke", "#000"); logoBox.setAttribute("stroke-width", "2");
+                g.appendChild(logoBox);
+
+                const logoText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                logoText.setAttribute("x", n.x); logoText.setAttribute("y", n.y - 30);
+                logoText.setAttribute("text-anchor", "middle"); logoText.setAttribute("fill", "#dc2626");
+                logoText.setAttribute("font-size", "14"); logoText.setAttribute("font-family", "monospace");
+                logoText.setAttribute("font-weight", "900");
+                logoText.textContent = "R";
+                g.appendChild(logoText);
+            } 
+            else if (n.owner === 'general') {
+                const logoBox = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                logoBox.setAttribute("x", n.x - 14); logoBox.setAttribute("y", n.y - 44);
+                logoBox.setAttribute("width", "28"); logoBox.setAttribute("height", "18");
+                logoBox.setAttribute("rx", "3"); logoBox.setAttribute("fill", "#fef08a");
+                logoBox.setAttribute("stroke", "#000"); logoBox.setAttribute("stroke-width", "2");
+                g.appendChild(logoBox);
+
+                const chicken = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                chicken.setAttribute("d", `M ${n.x - 6} ${n.y - 31} Q ${n.x - 2} ${n.y - 42} ${n.x + 4} ${n.y - 40} Q ${n.x + 8} ${n.y - 38} ${n.x + 6} ${n.y - 33} Q ${n.x + 2} ${n.y - 29} ${n.x - 6} ${n.y - 31} Z`);
+                chicken.setAttribute("fill", "#d97706");
+                g.appendChild(chicken);
+
+                const beak = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                beak.setAttribute("d", `M ${n.x + 4} ${n.y - 39} L ${n.x + 8} ${n.y - 38} L ${n.x + 4} ${n.y - 36} Z`);
+                beak.setAttribute("fill", "#dc2626");
+                g.appendChild(beak);
+            }
+            else if (n.owner === 'vegan') {
+                const leaf = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                leaf.setAttribute("d", `M ${n.x} ${n.y - 44} Q ${n.x + 12} ${n.y - 34} ${n.x} ${n.y - 24} Q ${n.x - 12} ${n.y - 34} ${n.x} ${n.y - 44} Z`);
+                leaf.setAttribute("fill", "#059669"); leaf.setAttribute("stroke", "#000"); leaf.setAttribute("stroke-width", "2");
+                g.appendChild(leaf);
+            }
+
+            const badgeBg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            badgeBg.setAttribute("x", n.x - 16); badgeBg.setAttribute("y", n.y + 2);
+            badgeBg.setAttribute("width", "32"); badgeBg.setAttribute("height", "14");
+            badgeBg.setAttribute("rx", "3"); badgeBg.setAttribute("fill", "#090d16");
+            badgeBg.setAttribute("stroke", "#000"); badgeBg.setAttribute("stroke-width", "1");
+            g.appendChild(badgeBg);
+
+            const countText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            countText.setAttribute("x", n.x); countText.setAttribute("y", n.y + 13);
+            countText.setAttribute("text-anchor", "middle"); countText.setAttribute("fill", "#fff");
+            countText.setAttribute("font-size", "10"); countText.setAttribute("font-family", "monospace");
+            countText.setAttribute("font-weight", "bold");
+            countText.textContent = Math.floor(n.troops);
+            g.appendChild(countText);
+
+            const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            label.setAttribute("x", n.x); label.setAttribute("y", n.y + 36);
+            label.setAttribute("text-anchor", "middle"); label.setAttribute("fill", "#e2e8f0");
+            label.setAttribute("font-size", "9"); label.setAttribute("font-family", "monospace");
+            label.textContent = n.name;
+            g.appendChild(label);
+        }
+
+        function renderPoole() {
+            const nodeLayer = document.getElementById('poole-node-layer');
+            const unitLayer = document.getElementById('poole-unit-layer');
+            nodeLayer.innerHTML = '';
+            unitLayer.innerHTML = '';
+
+            if (pooleDraggingNode) {
+                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.setAttribute("x1", pooleDraggingNode.x); line.setAttribute("y1", pooleDraggingNode.y);
+                line.setAttribute("x2", pooleMousePos.x); line.setAttribute("y2", pooleMousePos.y);
+                line.setAttribute("stroke", "#dc2626"); line.setAttribute("stroke-width", "4");
+                line.setAttribute("stroke-dasharray", "4");
+                unitLayer.appendChild(line);
+            }
+
+            pooleTravelingUnits.forEach(u => {
+                const x = u.fromX + (u.toX - u.fromX) * u.progress;
+                const y = u.fromY + (u.toY - u.fromY) * u.progress;
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", x); circle.setAttribute("cy", y);
+                circle.setAttribute("r", "7");
+                circle.setAttribute("fill", pooleFactions[u.owner].color);
+                circle.setAttribute("stroke", "#000"); circle.setAttribute("stroke-width", "2");
+                unitLayer.appendChild(circle);
+            });
+
+            let ronCount = 0, genCount = 0, vegCount = 0;
+            pooleNodes.forEach(n => {
+                if (n.owner === 'ron') ronCount++;
+                if (n.owner === 'general') genCount++;
+                if (n.owner === 'vegan') vegCount++;
+
+                const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                g.setAttribute("class", "cursor-pointer transition-transform hover:scale-105");
+                drawPooleRestaurantSVG(g, n);
+                nodeLayer.appendChild(g);
+            });
+
+            document.getElementById('score-ron').textContent = ronCount;
+            document.getElementById('score-gen').textContent = genCount;
+            document.getElementById('score-veg').textContent = vegCount;
+        }
+
+        function resetPooleGame() {
+            pooleNodes[0].owner = 'ron'; pooleNodes[0].troops = 30;
+            pooleNodes[1].owner = 'neutral'; pooleNodes[1].troops = 15;
+            pooleNodes[2].owner = 'ron'; pooleNodes[2].troops = 20;
+            pooleNodes[3].owner = 'neutral'; pooleNodes[3].troops = 15;
+            pooleNodes[4].owner = 'general'; pooleNodes[4].troops = 25;
+            pooleNodes[5].owner = 'neutral'; pooleNodes[5].troops = 20;
+            pooleNodes[6].owner = 'vegan'; pooleNodes[6].troops = 35;
+            pooleNodes[7].owner = 'general'; pooleNodes[7].troops = 30;
+            pooleNodes[8].owner = 'vegan'; pooleNodes[8].troops = 35;
+            pooleNodes[9].owner = 'neutral'; pooleNodes[9].troops = 35;
+            pooleTravelingUnits = [];
+        }
+
+        initPooleRoads();
+        requestAnimationFrame(updatePooleGame);
     </script>
 </body>
 </html>
