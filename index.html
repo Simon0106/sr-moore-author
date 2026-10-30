@@ -173,7 +173,7 @@
                 <a href="#arcade-section" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200 bg-red-100 text-red-700">🎮 Side-Scroller</a>
                 <a href="#poole-strategy" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200 bg-yellow-100 text-amber-900">🗺️ Poole Strategy Game</a>
                 <a href="#factions" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200">Pick Your Side</a>
-                <a href="#store" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200 text-red-700">Buy Direct (£9.99)</a>
+                <a href="#store" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200 text-red-700">Merch Shop</a>
                 <a href="#author" class="btn-90s px-4 py-2 font-bold text-sm uppercase hover:bg-yellow-200">About Author</a>
             </nav>
         </header>
@@ -210,11 +210,11 @@
                     </p>
                 </div>
                 <div class="flex flex-wrap gap-3 pt-2">
-                    <a href="#store" class="btn-90s bg-red-600 text-white font-bold px-6 py-3 text-base uppercase hover:bg-red-700 flex items-center gap-2">
+                    <a href="https://books2read.com/burgerwars" target="_blank" class="btn-90s bg-red-600 text-white font-bold px-6 py-3 text-base uppercase hover:bg-red-700 flex items-center gap-2">
                         🛒 Buy Paperback — £9.99
                     </a>
-                    <a href="https://www.goodreads.com/book/show/257059209-burger-wars" target="_blank" class="btn-90s bg-yellow-300 font-bold px-4 py-3 text-sm uppercase">
-                        ⭐ Goodreads Page
+                    <a href="https://books2read.com/burgerwars" target="_blank" class="btn-90s bg-yellow-300 font-bold px-6 py-3 text-base uppercase hover:bg-yellow-400">
+                        📱 Buy eBook — £2.99
                     </a>
                 </div>
             </div>
@@ -401,58 +401,137 @@
             </div>
         </div>
 
-        <!-- Direct Buy & Merch Section -->
+        <!-- Over-the-Top Merch Shop & Coming Soon Section -->
         <div id="store" class="bg-red-50 p-6 border-4 border-black mb-10 shadow-[6px_6px_0px_#000]">
-            <h2 class="retro-title text-xl sm:text-2xl text-red-600 text-center mb-6">🍔 MERCH & DIRECT ORDER 🍟</h2>
+            <div class="text-center mb-6">
+                <h2 class="retro-title text-xl sm:text-2xl text-red-600 mb-2">🍔 TACTICAL MERCH & RATION SHOP 🍟</h2>
+                <p class="text-xs text-gray-700 font-mono">ONLY THE BOOK & EBOOK ARE AVAILABLE NOW. EVERYTHING ELSE IS CLASSIFIED 'COMING SOON'.</p>
+            </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                
+                <!-- 1. Paperback (Available) -->
                 <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between">
                     <div>
-                        <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5">PHYSICAL</span>
-                        <h3 class="font-bold text-lg mt-2">Paperback</h3>
-                        <p class="text-xs text-gray-600 mt-1">Available now with fast UK delivery.</p>
+                        <span class="bg-red-600 text-white text-[10px] font-bold px-2 py-0.5">AVAILABLE NOW</span>
+                        <h3 class="font-bold text-lg mt-2">Paperback Edition</h3>
+                        <p class="text-xs text-gray-600 mt-1">Physical dead-tree frontline edition.</p>
                     </div>
                     <div class="mt-4">
                         <p class="retro-font text-2xl font-bold text-red-600 mb-2">£9.99</p>
-                        <a href="https://books2read.com/burgerwars" target="_blank" class="btn-90s block w-full py-2 font-bold text-xs uppercase bg-yellow-300">Buy on Amazon</a>
+                        <a href="https://books2read.com/burgerwars" target="_blank" class="btn-90s block w-full py-2 font-bold text-xs uppercase bg-yellow-300 hover:bg-yellow-400">Buy Paperback</a>
                     </div>
                 </div>
 
+                <!-- 2. eBook (Available) -->
                 <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between">
                     <div>
-                        <span class="bg-yellow-400 text-black text-[10px] font-bold px-2 py-0.5">KINDLE</span>
+                        <span class="bg-amber-500 text-black text-[10px] font-bold px-2 py-0.5">AVAILABLE NOW</span>
                         <h3 class="font-bold text-lg mt-2">eBook Edition</h3>
-                        <p class="text-xs text-gray-600 mt-1">Kindle Exclusive & Kindle Unlimited.</p>
+                        <p class="text-xs text-gray-600 mt-1">Instant digital brain download.</p>
                     </div>
                     <div class="mt-4">
                         <p class="retro-font text-2xl font-bold text-red-600 mb-2">£2.99</p>
-                        <a href="https://books2read.com/burgerwars" target="_blank" class="btn-90s block w-full py-2 font-bold text-xs uppercase bg-amber-400">Buy on Amazon</a>
+                        <a href="https://books2read.com/burgerwars" target="_blank" class="btn-90s block w-full py-2 font-bold text-xs uppercase bg-yellow-300 hover:bg-yellow-400">Buy eBook</a>
                     </div>
                 </div>
 
-                <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between">
+                <!-- 3. Life-Size Card -->
+                <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between relative cursor-pointer group" onclick="openEmailModal('Lifetime Free Extra-Value Meal Card')">
+                    <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="bg-red-600 text-white font-bold text-xs px-2 py-1 shadow">NOTIFY ME</span>
+                    </div>
                     <div>
-                        <span class="bg-black text-white text-[10px] font-bold px-2 py-0.5">PROP</span>
-                        <h3 class="font-bold text-lg mt-2">Loyalty Card</h3>
-                        <p class="text-xs text-gray-600 mt-1">"Free Value Meals for Life" card.</p>
+                        <span class="bg-black text-yellow-300 text-[10px] font-bold px-2 py-0.5 animate-pulse">COMING SOON</span>
+                        <h3 class="font-bold text-lg mt-2">Free Meals for Life Card</h3>
+                        <p class="text-xs text-gray-600 mt-1">Guaranteed titanium laminate card (valid until franchise collapse).</p>
                     </div>
                     <div class="mt-4">
-                        <p class="retro-font text-2xl font-bold text-red-600 mb-2">£2.50</p>
-                        <button onclick="alertBox('Added Loyalty Card to order!')" class="btn-90s w-full py-2 font-bold text-xs uppercase bg-yellow-300">Add to Order</button>
+                        <p class="retro-font text-2xl font-bold text-gray-400 mb-2">£24.99</p>
+                        <button class="btn-90s w-full py-2 font-bold text-xs uppercase bg-slate-200">Coming Soon</button>
                     </div>
                 </div>
 
-                <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between">
+                <!-- 4. Spatulated Rifle Replica -->
+                <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between relative cursor-pointer group" onclick="openEmailModal('Tactical Spatulated Rifle Prop Replica')">
+                    <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="bg-red-600 text-white font-bold text-xs px-2 py-1 shadow">NOTIFY ME</span>
+                    </div>
                     <div>
-                        <span class="bg-black text-white text-[10px] font-bold px-2 py-0.5">GEAR</span>
-                        <h3 class="font-bold text-lg mt-2">Vinyl Sticker</h3>
-                        <p class="text-xs text-gray-600 mt-1">Weatherproof faction sticker.</p>
+                        <span class="bg-black text-yellow-300 text-[10px] font-bold px-2 py-0.5 animate-pulse">COMING SOON</span>
+                        <h3 class="font-bold text-lg mt-2">Spatulated Rifle Replica</h3>
+                        <p class="text-xs text-gray-600 mt-1">1:1 scale plastic grease-rifle prop with built-in spatula.</p>
                     </div>
                     <div class="mt-4">
-                        <p class="retro-font text-2xl font-bold text-red-600 mb-2">£2.00</p>
-                        <button onclick="alertBox('Added Sticker to order!')" class="btn-90s w-full py-2 font-bold text-xs uppercase bg-yellow-300">Add to Order</button>
+                        <p class="retro-font text-2xl font-bold text-gray-400 mb-2">£149.99</p>
+                        <button class="btn-90s w-full py-2 font-bold text-xs uppercase bg-slate-200">Coming Soon</button>
                     </div>
                 </div>
+
+                <!-- 5. De-icing Walk-In Freezer Pod -->
+                <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between relative cursor-pointer group" onclick="openEmailModal('Marcus Cryo-Sleep Pod')">
+                    <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="bg-red-600 text-white font-bold text-xs px-2 py-1 shadow">NOTIFY ME</span>
+                    </div>
+                    <div>
+                        <span class="bg-black text-yellow-300 text-[10px] font-bold px-2 py-0.5 animate-pulse">COMING SOON</span>
+                        <h3 class="font-bold text-lg mt-2">Walk-In Freezer Pod</h3>
+                        <p class="text-xs text-gray-600 mt-1">Home cryo-preservation unit guaranteed to preserve you for 20 years.</p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="retro-font text-2xl font-bold text-gray-400 mb-2">£3,499.00</p>
+                        <button class="btn-90s w-full py-2 font-bold text-xs uppercase bg-slate-200">Coming Soon</button>
+                    </div>
+                </div>
+
+                <!-- 6. Synthetic Grease Cologne -->
+                <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between relative cursor-pointer group" onclick="openEmailModal('Eau de Fryer Grease Cologne')">
+                    <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="bg-red-600 text-white font-bold text-xs px-2 py-1 shadow">NOTIFY ME</span>
+                    </div>
+                    <div>
+                        <span class="bg-black text-yellow-300 text-[10px] font-bold px-2 py-0.5 animate-pulse">COMING SOON</span>
+                        <h3 class="font-bold text-lg mt-2">Eau de Fryer Grease</h3>
+                        <p class="text-xs text-gray-600 mt-1">Signature perfume blending notes of old canola oil, salt, and panic.</p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="retro-font text-2xl font-bold text-gray-400 mb-2">£45.00</p>
+                        <button class="btn-90s w-full py-2 font-bold text-xs uppercase bg-slate-200">Coming Soon</button>
+                    </div>
+                </div>
+
+                <!-- 7. Drive-Thru Headset -->
+                <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between relative cursor-pointer group" onclick="openEmailModal('Fused Drive-Thru Headset')">
+                    <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="bg-red-600 text-white font-bold text-xs px-2 py-1 shadow">NOTIFY ME</span>
+                    </div>
+                    <div>
+                        <span class="bg-black text-yellow-300 text-[10px] font-bold px-2 py-0.5 animate-pulse">COMING SOON</span>
+                        <h3 class="font-bold text-lg mt-2">Fused Headset Implant</h3>
+                        <p class="text-xs text-gray-600 mt-1">Permanent cranial headset for receiving frontline dispatch chatter 24/7.</p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="retro-font text-2xl font-bold text-gray-400 mb-2">£89.99</p>
+                        <button class="btn-90s w-full py-2 font-bold text-xs uppercase bg-slate-200">Coming Soon</button>
+                    </div>
+                </div>
+
+                <!-- 8. Tactical Apron Body Armor -->
+                <div class="bg-white border-4 border-black p-4 text-center flex flex-col justify-between relative cursor-pointer group" onclick="openEmailModal('Tactical Kevlar Apron')">
+                    <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span class="bg-red-600 text-white font-bold text-xs px-2 py-1 shadow">NOTIFY ME</span>
+                    </div>
+                    <div>
+                        <span class="bg-black text-yellow-300 text-[10px] font-bold px-2 py-0.5 animate-pulse">COMING SOON</span>
+                        <h3 class="font-bold text-lg mt-2">Kevlar Apron Armor</h3>
+                        <p class="text-xs text-gray-600 mt-1">Level III-A grease-resistant body armor with built-in condiment holsters.</p>
+                    </div>
+                    <div class="mt-4">
+                        <p class="retro-font text-2xl font-bold text-gray-400 mb-2">£119.99</p>
+                        <button class="btn-90s w-full py-2 font-bold text-xs uppercase bg-slate-200">Coming Soon</button>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -512,6 +591,23 @@
 
     </div>
 
+    <!-- Email Capture Modal Overlay for Coming Soon Items -->
+    <div id="email-modal" class="fixed inset-0 bg-black/80 flex items-center justify-center z-[99999] hidden">
+        <div class="bg-white border-8 border-red-600 p-6 max-w-md w-full mx-4 shadow-[8px_8px_0px_#000] text-center">
+            <h3 class="retro-title text-lg text-red-600 mb-2">🚨 FRONTLINE DISPATCH 🚨</h3>
+            <p id="modal-item-title" class="font-bold text-sm text-black mb-3">You're trying to reserve an unreleased tactical asset!</p>
+            <p class="text-xs text-gray-700 mb-4">Enter your email to receive immediate priority clearance the second this item hits the high street trenches.</p>
+            
+            <form onsubmit="handleEmailSubmit(event)" class="space-y-3">
+                <input type="email" id="subscriber-email" required placeholder="Enter your email address..." class="w-full p-3 border-2 border-black text-sm font-mono focus:outline-none focus:border-red-600">
+                <div class="flex gap-2 justify-center pt-2">
+                    <button type="submit" class="btn-90s bg-yellow-300 hover:bg-yellow-400 font-bold px-6 py-2 uppercase text-xs">ENROLL FOR INTEL</button>
+                    <button type="button" onclick="closeEmailModal()" class="btn-90s bg-gray-300 font-bold px-4 py-2 uppercase text-xs">CANCEL</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- JavaScript for Site Interactivity & Arcade Engines -->
     <script>
         // Custom non-blocking message box replacing alert()
@@ -525,6 +621,26 @@
                 </div>
             `;
             document.body.appendChild(div);
+        }
+
+        // Email Capture Modal Logic
+        let selectedMerchItem = '';
+        function openEmailModal(itemName) {
+            selectedMerchItem = itemName;
+            document.getElementById('modal-item-title').innerText = `Target Item: "${itemName}" is currently classified COMING SOON.`;
+            document.getElementById('email-modal').classList.remove('hidden');
+        }
+
+        function closeEmailModal() {
+            document.getElementById('email-modal').classList.add('hidden');
+            document.getElementById('subscriber-email').value = '';
+        }
+
+        function handleEmailSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('subscriber-email').value;
+            closeEmailModal();
+            alertBox(`SUCCESS! Intel secured for "${selectedMerchItem}". We'll beam your dispatch notifications to ${email} when stocks arrive.`);
         }
 
         // Faction FX Animations (Native emojis with half-submerged bottom explosions)
