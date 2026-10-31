@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title> S.R. MOORE'S BURGER WARS OFFICIAL HOMEPAGE & ARCADE ***</title>
+    <title>*** S.R. MOORE'S BURGER WARS OFFICIAL HOMEPAGE & ARCADE ***</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts for 90s Diner & Arcade Vibes -->
@@ -270,7 +270,7 @@
             </div>
         </div>
 
-        <!-- EMBEDDED 8-BIT ARCADE CABINET SECTION (MOBILE RESPONSIVE + TOUCH) -->
+        <!-- EMBEDDED 8-BIT ARCADE CABINET SECTION (BALANCED + POWER-UPS) -->
         <div id="arcade-section" class="bg-black text-white p-3 sm:p-6 border-4 border-yellow-400 mb-8 sm:mb-10 shadow-[6px_6px_0px_#dc2626]">
             <div class="text-center mb-4">
                 <h2 class="retro-title text-base sm:text-3xl text-yellow-300 mb-2">🪙 8-BIT SIDE-SCROLLER 🪙</h2>
@@ -305,6 +305,15 @@
                             START PLAYING
                         </button>
                     </div>
+
+                    <!-- 3-Card Power-Up Overlay -->
+                    <div id="powerup-overlay" class="absolute inset-0 bg-black/95 flex flex-col items-center justify-center p-3 z-40 text-center hidden">
+                        <h3 class="retro-title text-sm sm:text-xl text-yellow-300 mb-1">🎁 FRONTLINE PROMOTION! 🎁</h3>
+                        <p class="text-xs font-mono text-gray-300 mb-4">CHOOSE YOUR FAST-FOOD ASSIST CARD:</p>
+                        <div id="powerup-cards-container" class="grid grid-cols-3 gap-2 sm:gap-4 max-w-xl w-full">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Mobile On-Screen Arcade Controls -->
@@ -327,11 +336,11 @@
             </div>
         </div>
 
-        <!-- EMBEDDED POOLE HARBOUR STRATEGY GAME (MOBILE RESPONSIVE TOUCH) -->
+        <!-- EMBEDDED POOLE HARBOUR STRATEGY GAME (TAP-TAP + DRAG) -->
         <div id="poole-strategy" class="bg-slate-900 text-white p-3 sm:p-6 border-4 border-yellow-400 mb-8 sm:mb-10 shadow-[6px_6px_0px_#000] space-mono">
             <div class="text-center mb-4">
                 <h2 class="retro-title text-base sm:text-2xl text-yellow-300 mb-2">🗺️ POOLE HARBOUR STRATEGY 🗺️</h2>
-                <p class="text-[11px] sm:text-xs text-slate-400">Tap/Drag supply lines from your Grillers to conquer enemy stores across Dorset!</p>
+                <p class="text-[11px] sm:text-xs text-slate-400">Tap your red store to select, then tap an adjacent store to march troops!</p>
             </div>
 
             <!-- Strategy Game Frame -->
@@ -351,7 +360,7 @@
 
                 <!-- SVG Map Arena Container -->
                 <div class="relative w-full h-[320px] sm:h-[450px]">
-                    <svg id="poole-svg" class="w-full h-full cursor-crosshair touch-none" viewBox="0 0 1000 700">
+                    <svg id="poole-svg" class="w-full h-full cursor-pointer touch-none" viewBox="0 0 1000 700">
                         <g id="poole-map-bg">
                             <rect width="1000" height="700" fill="#0f172a"/>
                             <path d="M 50 650 Q 180 500 250 480 T 450 450 T 600 520 T 750 650 Z" fill="#0284c7" opacity="0.35"/>
@@ -368,7 +377,7 @@
 
                 <!-- Strategy Footer instructions -->
                 <div class="w-full bg-black px-3 py-2 border-t-2 border-slate-800 text-[9px] sm:text-[10px] text-yellow-300 text-center font-mono">
-                    TIP: DRAG FROM YOUR 'R' STORES TO ADJACENT STORES TO SWARM THEM!
+                    MOBILE: TAP YOUR RED STORE TO SELECT $\rightarrow$ TAP TARGET STORE TO ATTACK!
                 </div>
             </div>
         </div>
@@ -671,7 +680,7 @@
             }
         }
 
-        // --- EMBEDDED ARCADE ENGINE (MOBILE + TOUCH SUPPORT) ---
+        // --- EMBEDDED ARCADE ENGINE (BALANCED + POWER-UP CARDS) ---
         const canvas = document.getElementById('arcadeCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -705,6 +714,13 @@
                 gain.gain.setValueAtTime(0.15, now);
                 gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
                 osc.start(now); osc.stop(now + 0.25);
+            } else if (type === 'powerup') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.3);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now); osc.stop(now + 0.3);
             }
         }
 
@@ -713,8 +729,16 @@
         let arcadeLives = 3;
         let arcadeWave = 1;
         let arcadeTime = 0;
+        let nextPowerUpThreshold = 1000;
 
-        let player = { x: 80, y: 300, width: 32, height: 48, vx: 0, vy: 0, speed: 4, jumpPower: -9, grounded: false, facing: 'right' };
+        // Player perks state
+        let playerPerks = {
+            tripleShot: false,
+            piercingPatties: false,
+            speedMultiplier: 1.0
+        };
+
+        let player = { x: 80, y: 300, width: 32, height: 48, vx: 0, vy: 0, baseSpeed: 4, jumpPower: -9, grounded: false, facing: 'right' };
         let arcadeBullets = [];
         let arcadeEnemies = [];
         let arcadeBuildings = [];
@@ -748,10 +772,16 @@
         }
 
         function fireBullet() {
-            arcadeBullets.push({
-                x: player.facing === 'right' ? player.x + player.width : player.x - 10,
-                y: player.y + 16, vx: player.facing === 'right' ? 8 : -8, width: 10, height: 6
-            });
+            const startX = player.facing === 'right' ? player.x + player.width : player.x - 10;
+            const dirX = player.facing === 'right' ? 8 : -8;
+
+            if (playerPerks.tripleShot) {
+                arcadeBullets.push({ x: startX, y: player.y + 8, vx: dirX, vy: -1.5, width: 10, height: 6, pierce: playerPerks.piercingPatties });
+                arcadeBullets.push({ x: startX, y: player.y + 16, vx: dirX, vy: 0, width: 10, height: 6, pierce: playerPerks.piercingPatties });
+                arcadeBullets.push({ x: startX, y: player.y + 24, vx: dirX, vy: 1.5, width: 10, height: 6, pierce: playerPerks.piercingPatties });
+            } else {
+                arcadeBullets.push({ x: startX, y: player.y + 16, vx: dirX, vy: 0, width: 10, height: 6, pierce: playerPerks.piercingPatties });
+            }
             playArcadeSound('shoot');
         }
 
@@ -764,19 +794,70 @@
 
         function startArcadeGame() {
             arcadeState = 'PLAYING';
-            arcadeScore = 0; arcadeLives = 3; arcadeWave = 1;
+            arcadeScore = 0; arcadeLives = 3; arcadeWave = 1; nextPowerUpThreshold = 1000;
+            playerPerks = { tripleShot: false, piercingPatties: false, speedMultiplier: 1.0 };
             player.x = 80; player.y = 300;
             arcadeBullets = []; arcadeEnemies = [];
             initArcadeBuildings();
             document.getElementById('arcade-overlay').classList.add('hidden');
+            document.getElementById('powerup-overlay').classList.add('hidden');
+        }
+
+        const availableCards = [
+            { id: 'trevor_speed', title: "Trevor's Comms Boost", desc: "Permanent +30% Sprint Speed", icon: "🎧" },
+            { id: 'vera_life', title: "Vera's Emergency Ration", desc: "+1 Extra Heart / Life", icon: "💖" },
+            { id: 'triple_shot', title: "Flame-Grilled Spread", desc: "Shoot 3 Patties at once!", icon: "🍔" },
+            { id: 'pierce_patty', title: "Heavy Spatula", desc: "Patties pierce through enemies!", icon: "🗡️" }
+        ];
+
+        function triggerPowerUpScreen() {
+            arcadeState = 'POWERUP';
+            playArcadeSound('powerup');
+            const container = document.getElementById('powerup-cards-container');
+            container.innerHTML = '';
+
+            // Shuffle and pick 3 cards
+            const shuffled = [...availableCards].sort(() => 0.5 - Math.random()).slice(0, 3);
+            shuffled.forEach(card => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'btn-90s bg-yellow-200 hover:bg-yellow-300 p-2 sm:p-3 text-center flex flex-col items-center justify-between cursor-pointer border-2 border-black';
+                cardEl.onclick = () => selectPowerUpCard(card.id);
+                cardEl.innerHTML = `
+                    <div class="text-2xl sm:text-3xl mb-1">${card.icon}</div>
+                    <h4 class="font-bold text-[10px] sm:text-xs text-red-600 mb-1 leading-tight">${card.title}</h4>
+                    <p class="text-[9px] sm:text-[10px] text-black font-sans leading-tight">${card.desc}</p>
+                    <button class="mt-2 bg-red-600 text-white font-bold px-2 py-1 text-[8px] sm:text-[10px] w-full uppercase">SELECT</button>
+                `;
+                container.appendChild(cardEl);
+            });
+
+            document.getElementById('powerup-overlay').classList.remove('hidden');
+        }
+
+        function selectPowerUpCard(cardId) {
+            if (cardId === 'trevor_speed') playerPerks.speedMultiplier += 0.3;
+            if (cardId === 'vera_life') arcadeLives = Math.min(arcadeLives + 1, 5);
+            if (cardId === 'triple_shot') playerPerks.tripleShot = true;
+            if (cardId === 'pierce_patty') playerPerks.piercingPatties = true;
+
+            document.getElementById('powerup-overlay').classList.add('hidden');
+            arcadeState = 'PLAYING';
         }
 
         function updateArcade() {
             if (arcadeState !== 'PLAYING') return;
             arcadeTime++;
 
-            if (keys['ArrowLeft'] || keys['KeyA']) { player.vx = -player.speed; player.facing = 'left'; }
-            else if (keys['ArrowRight'] || keys['KeyD']) { player.vx = player.speed; player.facing = 'right'; }
+            // Check Power-Up Threshold
+            if (arcadeScore >= nextPowerUpThreshold) {
+                nextPowerUpThreshold += 1500;
+                triggerPowerUpScreen();
+                return;
+            }
+
+            const currentSpeed = player.baseSpeed * playerPerks.speedMultiplier;
+            if (keys['ArrowLeft'] || keys['KeyA']) { player.vx = -currentSpeed; player.facing = 'left'; }
+            else if (keys['ArrowRight'] || keys['KeyD']) { player.vx = currentSpeed; player.facing = 'right'; }
             else { player.vx = 0; }
 
             player.x += player.vx;
@@ -791,13 +872,17 @@
 
             for (let i = arcadeBullets.length - 1; i >= 0; i--) {
                 arcadeBullets[i].x += arcadeBullets[i].vx;
-                if (arcadeBullets[i].x > canvas.width || arcadeBullets[i].x < 0) arcadeBullets.splice(i, 1);
+                arcadeBullets[i].y += (arcadeBullets[i].vy || 0);
+                if (arcadeBullets[i].x > canvas.width || arcadeBullets[i].x < 0 || arcadeBullets[i].y < 0 || arcadeBullets[i].y > canvas.height) {
+                    arcadeBullets.splice(i, 1);
+                }
             }
 
-            if (Math.random() < 0.025 + (arcadeWave * 0.004)) {
+            // Balanced enemy speed scaling (+0.15 per wave)
+            if (Math.random() < 0.018 + (arcadeWave * 0.003)) {
                 arcadeEnemies.push({
                     x: canvas.width, y: 320 - 40, width: 28, height: 40,
-                    vx: -(1.4 + arcadeWave * 0.3), hp: 2
+                    vx: -(1.2 + arcadeWave * 0.15), hp: 2
                 });
             }
 
@@ -809,7 +894,8 @@
                     let bul = arcadeBullets[b];
                     if (bul.x < en.x + en.width && bul.x + bul.width > en.x &&
                         bul.y < en.y + en.height && bul.y + bul.height > en.y) {
-                        arcadeBullets.splice(b, 1);
+                        
+                        if (!bul.pierce) arcadeBullets.splice(b, 1);
                         en.hp--;
                         playArcadeSound('hit');
                         if (en.hp <= 0) {
@@ -833,7 +919,7 @@
                 if (en && en.x < -50) arcadeEnemies.splice(i, 1);
             }
 
-            if (arcadeScore > arcadeWave * 800) arcadeWave++;
+            if (arcadeScore > arcadeWave * 1000) arcadeWave++;
 
             document.getElementById('arcade-score').innerText = String(arcadeScore).padStart(6, '0');
             document.getElementById('arcade-lives').innerText = '♥'.repeat(arcadeLives);
@@ -892,7 +978,7 @@
         requestAnimationFrame(arcadeLoop);
 
 
-        // --- EMBEDDED POOLE HARBOUR STRATEGY GAME (MOBILE TOUCH SUPPORT) ---
+        // --- EMBEDDED POOLE HARBOUR STRATEGY GAME (TAP-TAP + DRAG) ---
         const pooleNodes = [
             { id: 1, name: 'Poole Quay', x: 420, y: 460, owner: 'ron', troops: 30, maxTroops: 60, genRate: 1.2 },
             { id: 2, name: 'Old Town', x: 450, y: 390, owner: 'neutral', troops: 15, maxTroops: 30, genRate: 0.6 },
@@ -913,6 +999,7 @@
         ];
 
         let pooleTravelingUnits = [];
+        let pooleSelectedNode = null;
         let pooleDraggingNode = null;
         let pooleMousePos = { x: 0, y: 0 };
 
@@ -948,15 +1035,46 @@
             return pt.matrixTransform(pooleSvg.getScreenCTM().inverse());
         }
 
+        function sendTroops(fromNode, toNode) {
+            const isConnected = pooleConnections.some(([f, t]) => 
+                (f === fromNode.id && t === toNode.id) || (t === fromNode.id && f === toNode.id)
+            );
+
+            if (isConnected && fromNode.troops > 4) {
+                const sendCount = Math.floor(fromNode.troops / 2);
+                fromNode.troops -= sendCount;
+                pooleTravelingUnits.push({
+                    fromX: fromNode.x, fromY: fromNode.y,
+                    toX: toNode.x, toY: toNode.y,
+                    progress: 0, speed: 0.015,
+                    owner: fromNode.owner, count: sendCount, targetId: toNode.id
+                });
+            }
+        }
+
         function handlePooleStart(e) {
             const svgP = getSvgPoint(e);
+            let clickedNode = null;
+
             pooleNodes.forEach(n => {
                 const dx = n.x - svgP.x;
                 const dy = n.y - svgP.y;
-                if (Math.sqrt(dx*dx + dy*dy) < 45 && n.owner === 'ron') {
-                    pooleDraggingNode = n;
+                if (Math.sqrt(dx*dx + dy*dy) < 45) {
+                    clickedNode = n;
                 }
             });
+
+            if (clickedNode) {
+                if (pooleSelectedNode && pooleSelectedNode.id !== clickedNode.id) {
+                    sendTroops(pooleSelectedNode, clickedNode);
+                    pooleSelectedNode = null;
+                } else if (clickedNode.owner === 'ron') {
+                    pooleSelectedNode = clickedNode;
+                    pooleDraggingNode = clickedNode;
+                }
+            } else {
+                pooleSelectedNode = null;
+            }
         }
 
         function handlePooleMove(e) {
@@ -976,20 +1094,8 @@
                 const dx = target.x - svgP.x;
                 const dy = target.y - svgP.y;
                 if (Math.sqrt(dx*dx + dy*dy) < 45 && target.id !== pooleDraggingNode.id) {
-                    const isConnected = pooleConnections.some(([f, t]) => 
-                        (f === pooleDraggingNode.id && t === target.id) || (t === pooleDraggingNode.id && f === target.id)
-                    );
-
-                    if (isConnected && pooleDraggingNode.troops > 4) {
-                        const sendCount = Math.floor(pooleDraggingNode.troops / 2);
-                        pooleDraggingNode.troops -= sendCount;
-                        pooleTravelingUnits.push({
-                            fromX: pooleDraggingNode.x, fromY: pooleDraggingNode.y,
-                            toX: target.x, toY: target.y,
-                            progress: 0, speed: 0.015,
-                            owner: 'ron', count: sendCount, targetId: target.id
-                        });
-                    }
+                    sendTroops(pooleDraggingNode, target);
+                    pooleSelectedNode = null;
                 }
             });
             pooleDraggingNode = null;
@@ -999,8 +1105,8 @@
         window.addEventListener('mousemove', handlePooleMove);
         window.addEventListener('mouseup', handlePooleEnd);
 
-        pooleSvg.addEventListener('touchstart', handlePooleStart, {passive: true});
-        window.addEventListener('touchmove', handlePooleMove, {passive: true});
+        pooleSvg.addEventListener('touchstart', handlePooleStart, {passive: false});
+        window.addEventListener('touchmove', handlePooleMove, {passive: false});
         window.addEventListener('touchend', handlePooleEnd);
 
         function updatePooleGame() {
@@ -1066,7 +1172,8 @@
             body.setAttribute("x", n.x - 34); body.setAttribute("y", n.y - 18);
             body.setAttribute("width", "68"); body.setAttribute("height", "38");
             body.setAttribute("rx", "4"); body.setAttribute("fill", fac.color);
-            body.setAttribute("stroke", "#000"); body.setAttribute("stroke-width", "3");
+            body.setAttribute("stroke", pooleSelectedNode && pooleSelectedNode.id === n.id ? "#facc15" : "#000");
+            body.setAttribute("stroke-width", pooleSelectedNode && pooleSelectedNode.id === n.id ? "5" : "3");
             g.appendChild(body);
 
             const roof = document.createElementNS("http://www.w3.org/2000/svg", "path");
@@ -1187,6 +1294,7 @@
             pooleNodes[8].owner = 'vegan'; pooleNodes[8].troops = 35;
             pooleNodes[9].owner = 'neutral'; pooleNodes[9].troops = 35;
             pooleTravelingUnits = [];
+            pooleSelectedNode = null;
         }
 
         initPooleRoads();
