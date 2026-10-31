@@ -146,7 +146,7 @@
     <!-- Top Retro Banner -->
     <div class="max-w-5xl mx-auto bg-yellow-300 border-4 border-black p-2 mb-4 shadow-[5px_5px_0px_#000] h-12 flex items-center overflow-hidden">
         <marquee class="font-bold text-red-600 tracking-wider text-xs sm:text-base leading-none" scrollamount="6">
-            🍔 WELCOME TO THE OFFICIAL BURGER WARS WEBPAGE! *** UK HIGH STREET DYSTOPIAN FAST-FOOD SATIRE *** GRILL OR BE GRILLED! 🍔
+            🍔 WELCOME TO THE OFFICIAL BURGER WARS WEBPAGE! *** UK HIGH STREET DYSTOPIAN FAST-FOOD SATIRE *** 10 CHAPTERS TO VICTORY! 🍔
         </marquee>
     </div>
 
@@ -181,7 +181,7 @@
         <!-- Warning Banner -->
         <div class="bg-red-100 border-2 sm:border-4 border-red-500 p-2.5 sm:p-3 mb-6 sm:mb-8 text-center flex items-center justify-center gap-2 sm:gap-3">
             <span class="text-lg sm:text-xl">⚠️</span>
-            <span class="font-bold text-red-700 text-[11px] sm:text-base">WARNING: UK HIGH STREET FRONT LINES ACTIVE. EGG-DEFLECTING BOSS MECHANIC ONLINE!</span>
+            <span class="font-bold text-red-700 text-[11px] sm:text-base">WARNING: 10 CHAPTERS TO SURVIVE. DEFEAT THE LEVEL 10 MEGA-CHICKEN TANK!</span>
             <span class="text-lg sm:text-xl">⚠️</span>
         </div>
 
@@ -270,11 +270,11 @@
             </div>
         </div>
 
-        <!-- EMBEDDED 8-BIT ARCADE CABINET SECTION (BOSS EGG DEFLECTION MECHANIC) -->
+        <!-- EMBEDDED 8-BIT ARCADE CABINET SECTION (10 LEVELS + LEVEL 10 TANK BOSS + CAPITALISM ENDING) -->
         <div id="arcade-section" class="bg-black text-white p-3 sm:p-6 border-4 border-yellow-400 mb-8 sm:mb-10 shadow-[6px_6px_0px_#dc2626]">
             <div class="text-center mb-4">
                 <h2 class="retro-title text-base sm:text-3xl text-yellow-300 mb-2">🪙 8-BIT SIDE-SCROLLER 🪙</h2>
-                <p class="text-[10px] sm:text-xs font-mono text-gray-300">SHOOT THE BOSS'S EGGS IN CHAPTER 5 TO DAMAGE IT!</p>
+                <p class="text-[10px] sm:text-xs font-mono text-gray-300">SURVIVE 10 CHAPTERS TO FACE THE MEGA-CHICKEN TANK!</p>
             </div>
 
             <!-- Arcade Cabinet Container -->
@@ -297,11 +297,11 @@
 
                     <!-- Start Overlay -->
                     <div id="arcade-overlay" class="absolute inset-0 bg-black/90 flex flex-col items-center justify-center p-4 z-30 text-center">
-                        <h3 class="retro-title text-sm sm:text-2xl text-red-500 mb-2 sm:mb-3">BURGER WARS: FRONT-LINE</h3>
-                        <p class="text-yellow-300 text-[11px] sm:text-xs mb-4 font-mono leading-relaxed">
-                            Marcus vs General's Chicken Cluckers & Bosses!<br>Tap screen controls below or use keyboard.
+                        <h3 id="overlay-title" class="retro-title text-sm sm:text-2xl text-red-500 mb-2 sm:mb-3">BURGER WARS: 10-LEVEL FRONT-LINE</h3>
+                        <p id="overlay-desc" class="text-yellow-300 text-[11px] sm:text-xs mb-4 font-mono leading-relaxed">
+                            Marcus vs General's Chicken & Level 10 Tank Boss!<br>Tap screen controls below or use keyboard.
                         </p>
-                        <button onclick="startArcadeGame()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 border-2 sm:border-4 border-white text-xs uppercase shadow-[4px_4px_0px_#ffff00]">
+                        <button id="overlay-btn" onclick="startArcadeGame()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 border-2 sm:border-4 border-white text-xs uppercase shadow-[4px_4px_0px_#ffff00]">
                             START PLAYING
                         </button>
                     </div>
@@ -680,7 +680,7 @@
             }
         }
 
-        // --- EMBEDDED ARCADE ENGINE (BOSS PAUSE, EGG LAUNCH & DEFLECTION MECHANIC) ---
+        // --- EMBEDDED ARCADE ENGINE (10 LEVELS + LEVEL 10 TANK BOSS + 3-HIT SYSTEM + CAPITALISM ENDING) ---
         const canvas = document.getElementById('arcadeCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -705,4 +705,884 @@
                 osc.frequency.setValueAtTime(180, now);
                 osc.frequency.linearRampToValueAtTime(60, now + 0.1);
                 gain.gain.setValueAtTime(0.08, now);
-                gain.gain.linearRampToValueAtTime(0.01, now +
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'airstrike') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(250, now);
+                osc.frequency.exponentialRampToValueAtTime(50, now + 0.6);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.6);
+                osc.start(now); osc.stop(now + 0.6);
+            } else if (type === 'jump') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(160, now);
+                osc.frequency.exponentialRampToValueAtTime(320, now + 0.1);
+                gain.gain.setValueAtTime(0.1, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
+                osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'hit') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(120, now);
+                osc.frequency.linearRampToValueAtTime(30, now + 0.25);
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+                osc.start(now); osc.stop(now + 0.25);
+            } else if (type === 'egg_break') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.exponentialRampToValueAtTime(200, now + 0.2);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.2);
+                osc.start(now); osc.stop(now + 0.2);
+            } else if (type === 'powerup') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(300, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.3);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now); osc.stop(now + 0.3);
+            } else if (type === 'boss_spawn') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(90, now);
+                osc.frequency.linearRampToValueAtTime(40, now + 0.8);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.8);
+                osc.start(now); osc.stop(now + 0.8);
+            }
+        }
+
+        let arcadeState = 'START';
+        let arcadeScore = 0;
+        let arcadeLives = 3;
+        let arcadeWave = 1;
+        let arcadeTime = 0;
+        let nextPowerUpThreshold = 1000;
+        let activeBoss = null;
+        let shootCooldown = 0;
+
+        let playerPerks = {
+            weapon: 'standard',
+            rateOfFireBonus: 0,
+            tripleShot: false,
+            piercingPatties: false,
+            speedMultiplier: 1.0,
+            acquiredPerks: []
+        };
+
+        let player = { x: 80, y: 300, width: 32, height: 48, vx: 0, vy: 0, baseSpeed: 4, jumpPower: -9, grounded: false, facing: 'right' };
+        let arcadeBullets = [];
+        let arcadeEnemies = [];
+        let arcadeBuildings = [];
+
+        let keys = {};
+        window.addEventListener('keydown', e => {
+            if (['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.code)) e.preventDefault();
+            keys[e.code] = true;
+            if ((e.code === 'Space' || e.code === 'KeyW') && player.grounded && arcadeState === 'PLAYING') {
+                player.vy = player.jumpPower; player.grounded = false; playArcadeSound('jump');
+            }
+            if ((e.code === 'KeyJ' || e.code === 'KeyX') && arcadeState === 'PLAYING') {
+                fireWeapon();
+            }
+        });
+        window.addEventListener('keyup', e => { keys[e.code] = false; });
+
+        function handleTouchBtn(dir, isDown) {
+            if (dir === 'left') keys['ArrowLeft'] = isDown;
+            if (dir === 'right') keys['ArrowRight'] = isDown;
+        }
+
+        function handleTouchAction(action) {
+            if (arcadeState !== 'PLAYING') return;
+            if (action === 'jump' && player.grounded) {
+                player.vy = player.jumpPower; player.grounded = false; playArcadeSound('jump');
+            }
+            if (action === 'shoot') {
+                fireWeapon();
+            }
+        }
+
+        function fireWeapon() {
+            if (shootCooldown > 0) return;
+            
+            const startX = player.facing === 'right' ? player.x + player.width : player.x - 10;
+            const dirX = player.facing === 'right' ? 8 : -8;
+            const baseCooldown = 18;
+            shootCooldown = Math.max(4, baseCooldown - playerPerks.rateOfFireBonus);
+
+            if (playerPerks.weapon === 'flamethrower') {
+                shootCooldown = Math.max(3, 8 - playerPerks.rateOfFireBonus);
+                playArcadeSound('flame');
+                arcadeBullets.push({
+                    x: startX, y: player.y + 14,
+                    vx: dirX * 1.2, vy: (Math.random() - 0.5) * 1,
+                    width: 16, height: 12, pierce: true, isPlayer: true, isFlame: true, life: 18
+                });
+            } else if (playerPerks.weapon === 'cannon') {
+                shootCooldown = Math.max(12, 28 - playerPerks.rateOfFireBonus);
+                playArcadeSound('shoot');
+                arcadeBullets.push({
+                    x: startX, y: player.y + 12,
+                    vx: dirX * 0.8, vy: -3,
+                    width: 14, height: 14, pierce: false, isPlayer: true, isCannon: true
+                });
+            } else if (playerPerks.weapon === 'airstrike') {
+                shootCooldown = Math.max(15, 35 - playerPerks.rateOfFireBonus);
+                playArcadeSound('airstrike');
+                for (let m = 0; m < 3; m++) {
+                    arcadeBullets.push({
+                        x: player.x + (m * 40 - 20), y: 0,
+                        vx: dirX * 0.5, vy: 4,
+                        width: 12, height: 12, pierce: true, isPlayer: true, isAirstrike: true
+                    });
+                }
+            } else {
+                playArcadeSound('shoot');
+                if (playerPerks.tripleShot) {
+                    arcadeBullets.push({ x: startX, y: player.y + 8, vx: dirX, vy: -1.2, width: 10, height: 6, pierce: playerPerks.piercingPatties, isPlayer: true });
+                    arcadeBullets.push({ x: startX, y: player.y + 16, vx: dirX, vy: 0, width: 10, height: 6, pierce: playerPerks.piercingPatties, isPlayer: true });
+                    arcadeBullets.push({ x: startX, y: player.y + 24, vx: dirX, vy: 1.2, width: 10, height: 6, pierce: playerPerks.piercingPatties, isPlayer: true });
+                } else {
+                    arcadeBullets.push({ x: startX, y: player.y + 16, vx: dirX, vy: 0, width: 10, height: 6, pierce: playerPerks.piercingPatties, isPlayer: true });
+                }
+            }
+        }
+
+        function initArcadeBuildings() {
+            arcadeBuildings = [];
+            for (let i = 0; i < 6; i++) {
+                arcadeBuildings.push({ x: i * 180, width: 160, height: 180 + Math.random() * 60, color: i % 2 === 0 ? '#262630' : '#1b1b22' });
+            }
+        }
+
+        function startArcadeGame() {
+            arcadeState = 'PLAYING';
+            arcadeScore = 0; arcadeLives = 3; arcadeWave = 1; nextPowerUpThreshold = 1000;
+            activeBoss = null; shootCooldown = 0;
+            playerPerks = {
+                weapon: 'standard',
+                rateOfFireBonus: 0,
+                tripleShot: false,
+                piercingPatties: false,
+                speedMultiplier: 1.0,
+                acquiredPerks: []
+            };
+            player.x = 80; player.y = 300;
+            arcadeBullets = []; arcadeEnemies = [];
+            initArcadeBuildings();
+            document.getElementById('arcade-overlay').classList.add('hidden');
+            document.getElementById('powerup-overlay').classList.add('hidden');
+        }
+
+        const masterCardPool = [
+            { id: 'vera_life', title: "Vera's Emergency Ration", desc: "+1 Extra Heart (Stackable)", icon: "💖", cost: 0, stackable: true },
+            { id: 'rate_of_fire', title: "Spatula Speed Polish", desc: "+30% Rate of Fire (Stackable)", icon: "⚡", cost: 200, stackable: true },
+            { id: 'trevor_speed', title: "Trevor's Comms Boost", desc: "+30% Sprint Speed (Stackable)", icon: "🎧", cost: 150, stackable: true },
+            { id: 'triple_shot', title: "Flame-Grilled Spread", desc: "Shoot 3 Patties at once! (-600 Pts)", icon: "🍔", cost: 600, stackable: false },
+            { id: 'pierce_patty', title: "Heavy Spatula", desc: "Patties pierce enemies! (-400 Pts)", icon: "🗡️", cost: 400, stackable: false },
+            { id: 'weapon_flame', title: "Grease Flamethrower", desc: "Melt enemies with short-range fire! (-1500 Pts)", icon: "🔥", cost: 1500, stackable: false },
+            { id: 'weapon_cannon', title: "Condiment Cannon", desc: "Fire heavy arcing sauce bombs! (-1800 Pts)", icon: "💣", cost: 1800, stackable: false },
+            { id: 'weapon_airstrike', title: "Ron's Air-Strike Beacon", desc: "Call down orbital burger carpet bombs! (-2500 Pts)", icon: "🚀", cost: 2500, stackable: false }
+        ];
+
+        function triggerPowerUpScreen() {
+            arcadeState = 'POWERUP';
+            playArcadeSound('powerup');
+            const container = document.getElementById('powerup-cards-container');
+            container.innerHTML = '';
+
+            const availableCards = masterCardPool.filter(card => card.stackable || !playerPerks.acquiredPerks.includes(card.id));
+            const shuffled = [...availableCards].sort(() => 0.5 - Math.random()).slice(0, 3);
+            
+            shuffled.forEach(card => {
+                const canAfford = arcadeScore >= card.cost;
+                const cardEl = document.createElement('div');
+                cardEl.className = `btn-90s ${canAfford ? 'bg-yellow-200 hover:bg-yellow-300 cursor-pointer' : 'bg-gray-400 opacity-60 cursor-not-allowed'} p-2 sm:p-3 text-center flex flex-col items-center justify-between border-2 border-black`;
+                
+                if (canAfford) {
+                    cardEl.onclick = () => selectPowerUpCard(card.id, card.cost, card.stackable);
+                }
+
+                cardEl.innerHTML = `
+                    <div class="text-2xl sm:text-3xl mb-1">${card.icon}</div>
+                    <h4 class="font-bold text-[10px] sm:text-xs text-red-600 mb-1 leading-tight">${card.title}</h4>
+                    <p class="text-[9px] sm:text-[10px] text-black font-sans leading-tight">${card.desc}</p>
+                    <button class="mt-2 ${canAfford ? 'bg-red-600 text-white' : 'bg-gray-600 text-gray-300'} font-bold px-2 py-1 text-[8px] sm:text-[10px] w-full uppercase">${card.cost > 0 ? `Cost: ${card.cost} Pts` : 'SELECT'}</button>
+                `;
+                container.appendChild(cardEl);
+            });
+
+            document.getElementById('powerup-overlay').classList.remove('hidden');
+        }
+
+        function selectPowerUpCard(cardId, cost, isStackable) {
+            if (arcadeScore < cost) return;
+            arcadeScore -= cost;
+
+            if (!isStackable) {
+                playerPerks.acquiredPerks.push(cardId);
+            }
+
+            if (cardId === 'vera_life') arcadeLives = Math.min(arcadeLives + 1, 5);
+            if (cardId === 'rate_of_fire') playerPerks.rateOfFireBonus += 3;
+            if (cardId === 'trevor_speed') playerPerks.speedMultiplier += 0.3;
+            if (cardId === 'triple_shot') playerPerks.tripleShot = true;
+            if (cardId === 'pierce_patty') playerPerks.piercingPatties = true;
+            if (cardId === 'weapon_flame') playerPerks.weapon = 'flamethrower';
+            if (cardId === 'weapon_cannon') playerPerks.weapon = 'cannon';
+            if (cardId === 'weapon_airstrike') playerPerks.weapon = 'airstrike';
+
+            document.getElementById('powerup-overlay').classList.add('hidden');
+            arcadeState = 'PLAYING';
+        }
+
+        function updateArcade() {
+            if (arcadeState !== 'PLAYING') return;
+            arcadeTime++;
+            if (shootCooldown > 0) shootCooldown--;
+
+            if (arcadeScore >= nextPowerUpThreshold) {
+                nextPowerUpThreshold += 1500;
+                triggerPowerUpScreen();
+                return;
+            }
+
+            const currentSpeed = player.baseSpeed * playerPerks.speedMultiplier;
+            if (keys['ArrowLeft'] || keys['KeyA']) { player.vx = -currentSpeed; player.facing = 'left'; }
+            else if (keys['ArrowRight'] || keys['KeyD']) { player.vx = currentSpeed; player.facing = 'right'; }
+            else { player.vx = 0; }
+
+            player.x += player.vx;
+            if (player.x < 10) player.x = 10;
+            if (player.x > canvas.width - 45) player.x = canvas.width - 45;
+
+            player.vy += 0.45; player.y += player.vy;
+            const groundY = 320;
+            if (player.y + player.height > groundY) {
+                player.y = groundY - player.height; player.vy = 0; player.grounded = true;
+            }
+
+            // Bullet Updates
+            for (let i = arcadeBullets.length - 1; i >= 0; i--) {
+                let bul = arcadeBullets[i];
+                bul.x += bul.vx;
+                bul.y += (bul.vy || 0);
+
+                if (bul.isCannon || bul.isAirstrike) {
+                    bul.vy += 0.25;
+                }
+                if (bul.isFlame) {
+                    bul.life--;
+                    if (bul.life <= 0) {
+                        arcadeBullets.splice(i, 1);
+                        continue;
+                    }
+                }
+
+                if (!bul.isPlayer) {
+                    if (bul.x < player.x + player.width && bul.x + bul.width > player.x &&
+                        bul.y < player.y + player.height && bul.y + bul.height > player.y) {
+                        arcadeLives--; playArcadeSound('hit');
+                        arcadeBullets.splice(i, 1);
+                        if (arcadeLives <= 0) {
+                            arcadeState = 'GAMEOVER';
+                            document.getElementById('overlay-title').innerText = "GAME OVER";
+                            document.getElementById('overlay-desc').innerText = "You fell in the fast-food trenches. Try again!";
+                            document.getElementById('arcade-overlay').classList.remove('hidden');
+                            document.getElementById('overlay-btn').innerText = 'PLAY AGAIN';
+                        }
+                        continue;
+                    }
+                }
+
+                if (bul.x > canvas.width || bul.x < 0 || bul.y < 0 || bul.y > canvas.height) {
+                    arcadeBullets.splice(i, 1);
+                }
+            }
+
+            // Level 10 Mega-Chicken Tank Boss Spawn Condition
+            if (arcadeWave === 10 && !activeBoss && arcadeEnemies.length === 0) {
+                activeBoss = {
+                    x: canvas.width - 160, y: 320 - 140, width: 130, height: 140,
+                    hp: 3, maxHp: 3, state: 'moving', stateTimer: 0, vx: -1.8, name: "MEGA-CHICKEN TANK"
+                };
+                playArcadeSound('boss_spawn');
+            }
+
+            // Boss FSM Logic (Level 10 Tank Boss: 3-hit exact vulnerability)
+            if (activeBoss) {
+                if (activeBoss.state === 'moving') {
+                    activeBoss.x += activeBoss.vx;
+                    if (activeBoss.x <= canvas.width - 260) {
+                        activeBoss.state = 'pausing';
+                        activeBoss.stateTimer = 0;
+                    }
+                } else if (activeBoss.state === 'pausing') {
+                    activeBoss.stateTimer++;
+                    if (activeBoss.stateTimer === 30) {
+                        // Heavy tank egg artillery barrage
+                        for (let e = 0; e < 4; e++) {
+                            arcadeBullets.push({
+                                x: activeBoss.x, y: activeBoss.y + 40,
+                                vx: -4.5 - (e * 0.5), vy: -1.2 + (e * 0.6),
+                                width: 16, height: 20, isPlayer: false, isBossEgg: true
+                            });
+                        }
+                        playArcadeSound('shoot');
+                    }
+                    if (activeBoss.stateTimer > 90) {
+                        activeBoss.state = 'vulnerable';
+                        activeBoss.stateTimer = 0;
+                    }
+                } else if (activeBoss.state === 'vulnerable') {
+                    activeBoss.stateTimer++;
+                    if (activeBoss.stateTimer > 100) {
+                        activeBoss.state = 'moving';
+                        activeBoss.vx = 1.8;
+                    }
+                }
+
+                if (activeBoss.x > canvas.width - 130 && activeBoss.state === 'moving' && activeBoss.vx > 0) {
+                    activeBoss.vx = -1.8;
+                }
+
+                for (let b = arcadeBullets.length - 1; b >= 0; b--) {
+                    let bul = arcadeBullets[b];
+                    
+                    if (bul.isPlayer) {
+                        for (let eb = arcadeBullets.length - 1; eb >= 0; eb--) {
+                            let egg = arcadeBullets[eb];
+                            if (egg.isBossEgg && bul.x < egg.x + egg.width && bul.x + bul.width > egg.x &&
+                                bul.y < egg.y + egg.height && bul.y + bul.height > egg.y) {
+                                arcadeBullets.splice(eb, 1);
+                                if (!bul.pierce) arcadeBullets.splice(b, 1);
+                                playArcadeSound('egg_break');
+                                break;
+                            }
+                        }
+                    }
+
+                    // Level 10 Tank Boss takes exactly 1 hit per vulnerability cycle (Dies in 3 total hits)
+                    if (bul.isPlayer && activeBoss.state === 'vulnerable' &&
+                        bul.x < activeBoss.x + activeBoss.width && bul.x + bul.width > activeBoss.x &&
+                        bul.y < activeBoss.y + activeBoss.height && bul.y + bul.height > activeBoss.y) {
+                        if (!bul.pierce && !bul.isFlame) arcadeBullets.splice(b, 1);
+                        activeBoss.hp -= 1;
+                        playArcadeSound('hit');
+                        
+                        if (activeBoss.hp <= 0) {
+                            arcadeScore += 10000;
+                            activeState = 'VICTORY';
+                            document.getElementById('overlay-title').innerText = "GAME OVER!";
+                            document.getElementById('overlay-desc').innerText = "THE REAL WINNER HERE IS CAPITALISM.";
+                            document.getElementById('arcade-overlay').classList.remove('hidden');
+                            document.getElementById('overlay-btn').innerText = 'PLAY AGAIN';
+                        }
+                        break;
+                    }
+                }
+            } else {
+                // Regular Enemy Spawning across 10 levels
+                if (arcadeWave !== 10 && Math.random() < 0.016 + (arcadeWave * 0.002)) {
+                    const randType = Math.random();
+                    let enType = 'normal';
+                    let enHp = 2 + Math.floor(arcadeWave / 3);
+                    let enWidth = 28;
+                    let enHeight = 40;
+                    let enColor = '#eab308';
+
+                    if (randType < 0.3 && arcadeWave >= 3) {
+                        enType = 'armored';
+                        enHp = 4 + Math.floor(arcadeWave / 2);
+                        enWidth = 36;
+                        enHeight = 46;
+                        enColor = '#71717a';
+                    } else if (randType < 0.55 && arcadeWave >= 2) {
+                        enType = 'flying';
+                        enHp = 2;
+                        enWidth = 32;
+                        enHeight = 32;
+                        enColor = '#f97316';
+                    }
+
+                    arcadeEnemies.push({
+                        x: canvas.width, y: enType === 'flying' ? 320 - 120 : 320 - enHeight,
+                        width: enWidth, height: enHeight,
+                        vx: -(1.2 + arcadeWave * 0.12), hp: enHp, type: enType, color: enColor
+                    });
+                }
+
+                for (let i = arcadeEnemies.length - 1; i >= 0; i--) {
+                    let en = arcadeEnemies[i];
+                    en.x += en.vx;
+                    if (en.type === 'flying') {
+                        en.y = (320 - 120) + Math.sin(arcadeTime * 0.08) * 35;
+                    }
+
+                    for (let b = arcadeBullets.length - 1; b >= 0; b--) {
+                        let bul = arcadeBullets[b];
+                        if (bul.isPlayer && bul.x < en.x + en.width && bul.x + bul.width > en.x &&
+                            bul.y < en.y + en.height && bul.y + bul.height > en.y) {
+                            
+                            if (!bul.pierce && !bul.isFlame) arcadeBullets.splice(b, 1);
+                            en.hp -= (bul.isCannon ? 3 : (bul.isAirstrike ? 4 : 1));
+                            playArcadeSound('hit');
+                            if (en.hp <= 0) {
+                                arcadeScore += (en.type === 'armored' ? 300 : 150);
+                                arcadeEnemies.splice(i, 1);
+                            }
+                            break;
+                        }
+                    }
+
+                    if (en && en.x < player.x + player.width && en.x + en.width > player.x &&
+                        en.y < player.y + player.height && en.y + en.height > player.y) {
+                        arcadeLives--; playArcadeSound('hit'); arcadeEnemies.splice(i, 1);
+                        if (arcadeLives <= 0) {
+                            arcadeState = 'GAMEOVER';
+                            document.getElementById('overlay-title').innerText = "GAME OVER";
+                            document.getElementById('overlay-desc').innerText = "You fell in the fast-food trenches. Try again!";
+                            document.getElementById('arcade-overlay').classList.remove('hidden');
+                            document.getElementById('overlay-btn').innerText = 'PLAY AGAIN';
+                        }
+                    }
+
+                    if (en && en.x < -50) arcadeEnemies.splice(i, 1);
+                }
+
+                if (arcadeScore > arcadeWave * 1500 && arcadeWave < 10) arcadeWave++;
+            }
+
+            document.getElementById('arcade-score').innerText = String(arcadeScore).padStart(6, '0');
+            document.getElementById('arcade-lives').innerText = '♥'.repeat(arcadeLives);
+            
+            // 10 Chapters Narrative Tracker
+            let chapterTitle = "CHAPTER 1: THE STREETS";
+            if (arcadeWave === 2) chapterTitle = "CHAPTER 2: HIGH STREET WASTES";
+            else if (arcadeWave === 3) chapterTitle = "CHAPTER 3: SMOG INDUSTRIAL";
+            else if (arcadeWave === 4) chapterTitle = "CHAPTER 4: DEEP FRYER ALLEY";
+            else if (arcadeWave === 5) chapterTitle = "CHAPTER 5: THE DRIVE-THRU PERIMETER";
+            else if (arcadeWave === 6) chapterTitle = "CHAPTER 6: GREASE-CHOKED BYPASS";
+            else if (arcadeWave === 7) chapterTitle = "CHAPTER 7: SUBURBAN KITCHEN WARFARE";
+            else if (arcadeWave === 8) chapterTitle = "CHAPTER 8: CORPORATE BOARDROOM RUINS";
+            else if (arcadeWave === 9) chapterTitle = "CHAPTER 9: THE ULTIMATE FRY VATS";
+            else if (arcadeWave >= 10) chapterTitle = "CHAPTER 10: MEGA-CHICKEN TANK SHOWDOWN";
+            
+            document.getElementById('arcade-chapter-label').innerText = chapterTitle;
+        }
+
+        function drawArcade() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            let grad = ctx.createLinearGradient(0, 0, 0, 320);
+            if (arcadeWave >= 10 || activeBoss) {
+                grad.addColorStop(0, '#7f1d1d'); grad.addColorStop(1, '#450a0a');
+            } else if (arcadeWave >= 7) {
+                grad.addColorStop(0, '#581c87'); grad.addColorStop(1, '#3b0764');
+            } else {
+                grad.addColorStop(0, '#312e81'); grad.addColorStop(1, '#7f1d1d');
+            }
+            ctx.fillStyle = grad; ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            arcadeBuildings.forEach(b => {
+                let ox = -(arcadeTime * 0.4) % 180;
+                ctx.fillStyle = b.color;
+                ctx.fillRect(b.x + ox, 320 - b.height, b.width, b.height);
+                ctx.fillStyle = '#fde047';
+                for (let wx = b.x + ox + 15; wx < b.x + ox + b.width - 15; wx += 30) {
+                    for (let wy = 320 - b.height + 15; wy < 300; wy += 35) {
+                        ctx.fillRect(wx, wy, 12, 20);
+                    }
+                }
+            });
+
+            ctx.fillStyle = '#111827'; ctx.fillRect(0, 320, canvas.width, 80);
+            ctx.fillStyle = '#dc2626'; ctx.fillRect(0, 320, canvas.width, 5);
+
+            arcadeBullets.forEach(b => {
+                if (b.isBossEgg) {
+                    ctx.fillStyle = '#ffffff';
+                    ctx.beginPath();
+                    ctx.ellipse(b.x + 8, b.y + 10, 8, 10, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                } else if (b.isFlame) {
+                    ctx.fillStyle = '#f97316';
+                    ctx.fillRect(b.x, b.y, b.width, b.height);
+                } else if (b.isCannon || b.isAirstrike) {
+                    ctx.fillStyle = '#ef4444';
+                    ctx.fillRect(b.x, b.y, b.width, b.height);
+                } else {
+                    ctx.fillStyle = b.isPlayer ? '#fbbf24' : '#ef4444';
+                    ctx.fillRect(b.x, b.y, b.width, b.height);
+                }
+            });
+
+            ctx.fillStyle = '#dc2626'; ctx.fillRect(player.x, player.y + 14, player.width, 24);
+            ctx.fillStyle = '#fbcfe8'; ctx.fillRect(player.x + 6, player.y, 20, 14);
+            ctx.fillStyle = '#ffffff'; ctx.font = 'bold 9px sans-serif'; ctx.fillText("R", player.x + 11, player.y + 28);
+            ctx.fillStyle = '#9ca3af';
+            if (player.facing === 'right') ctx.fillRect(player.x + 24, player.y + 20, 16, 5);
+            else ctx.fillRect(player.x - 10, player.y + 20, 16, 5);
+
+            if (activeBoss) {
+                // Mega-Chicken Tank Sprite & Heavy Armor Plating
+                ctx.fillStyle = '#374151'; ctx.fillRect(activeBoss.x - 10, activeBoss.y + 80, activeBoss.width + 20, 60); // Tank Treads
+                ctx.fillStyle = activeBoss.state === 'vulnerable' ? '#fde047' : '#fef08a';
+                ctx.fillRect(activeBoss.x, activeBoss.y, activeBoss.width, activeBoss.height);
+                ctx.fillStyle = '#b45309'; ctx.fillRect(activeBoss.x + 12, activeBoss.y + 12, activeBoss.width - 24, 45);
+                ctx.fillStyle = '#71717a'; ctx.fillRect(activeBoss.x - 15, activeBoss.y + 30, 20, 14); // Tank cannon barrel
+                ctx.fillStyle = '#000000'; ctx.fillRect(activeBoss.x + activeBoss.width - 18, activeBoss.y + 28, 8, 8);
+                
+                // Boss Health Bar (3 Hits)
+                ctx.fillStyle = '#000'; ctx.fillRect(canvas.width / 2 - 110, 12, 220, 14);
+                ctx.fillStyle = activeBoss.state === 'vulnerable' ? '#22c55e' : '#dc2626'; 
+                ctx.fillRect(canvas.width / 2 - 108, 14, (216 * (activeBoss.hp / activeBoss.maxHp)), 10);
+                ctx.fillStyle = '#fff'; ctx.font = '7px monospace'; 
+                ctx.fillText(activeBoss.state === 'vulnerable' ? "TANK VULNERABLE (1 HIT LEFT!)" : "MEGA-CHICKEN TANK (ARMORED)", canvas.width / 2 - 85, 23);
+            }
+
+            arcadeEnemies.forEach(en => {
+                ctx.fillStyle = en.color;
+                ctx.fillRect(en.x, en.y + (en.type === 'flying' ? 0 : 10), en.width, en.height - (en.type === 'flying' ? 0 : 10));
+                ctx.fillStyle = '#fef08a'; ctx.fillRect(en.x + 2, en.y, en.width - 4, 12);
+                ctx.fillStyle = '#000000'; ctx.fillRect(en.x + 6, en.y + 14, 8, 6);
+                if (en.type === 'armored') {
+                    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2;
+                    ctx.strokeRect(en.x - 2, en.y - 2, en.width + 4, en.height + 4);
+                }
+            });
+        }
+
+        function arcadeLoop() {
+            updateArcade();
+            drawArcade();
+            requestAnimationFrame(arcadeLoop);
+        }
+        requestAnimationFrame(arcadeLoop);
+
+
+        // --- EMBEDDED POOLE HARBOUR STRATEGY GAME (TAP-TAP + DRAG) ---
+        const pooleNodes = [
+            { id: 1, name: 'Poole Quay', x: 420, y: 460, owner: 'ron', troops: 30, maxTroops: 60, genRate: 1.2 },
+            { id: 2, name: 'Old Town', x: 450, y: 390, owner: 'neutral', troops: 15, maxTroops: 30, genRate: 0.6 },
+            { id: 3, name: 'Holes Bay', x: 380, y: 310, owner: 'ron', troops: 20, maxTroops: 45, genRate: 0.8 },
+            { id: 4, name: 'Upton Cross', x: 230, y: 260, owner: 'neutral', troops: 15, maxTroops: 35, genRate: 0.6 },
+            { id: 5, name: 'Hamworthy', x: 270, y: 480, owner: 'general', troops: 25, maxTroops: 50, genRate: 1.0 },
+            { id: 6, name: 'Oakdale', x: 550, y: 320, owner: 'neutral', troops: 20, maxTroops: 40, genRate: 0.7 },
+            { id: 7, name: 'Parkstone', x: 680, y: 340, owner: 'vegan', troops: 35, maxTroops: 70, genRate: 1.2 },
+            { id: 8, name: 'Branksome', x: 820, y: 290, owner: 'general', troops: 30, maxTroops: 60, genRate: 1.1 },
+            { id: 9, name: 'Canford Cliffs', x: 780, y: 470, owner: 'vegan', troops: 35, maxTroops: 70, genRate: 1.2 },
+            { id: 10, name: 'Sandbanks', x: 670, y: 570, owner: 'neutral', troops: 35, maxTroops: 70, genRate: 1.5 },
+        ];
+
+        const pooleConnections = [
+            [1, 2], [1, 5], [2, 3], [2, 6], [3, 4], 
+            [3, 6], [5, 4], [6, 7], [7, 8], [7, 9], 
+            [8, 9], [9, 10], [1, 10]
+        ];
+
+        let pooleTravelingUnits = [];
+        let pooleSelectedNode = null;
+        let pooleDraggingNode = null;
+        let pooleMousePos = { x: 0, y: 0 };
+
+        const pooleFactions = {
+            ron: { color: '#dc2626', roof: '#991b1b', name: "Ron's Burgers" },
+            general: { color: '#d97706', roof: '#92400e', name: "General's Chicken" },
+            vegan: { color: '#047857', roof: '#022c22', name: "Militant Vegans" },
+            neutral: { color: '#475569', roof: '#334155', name: "Independent" }
+        };
+
+        const pooleSvg = document.getElementById('poole-svg');
+
+        function initPooleRoads() {
+            const roadLayer = document.getElementById('poole-road-layer');
+            roadLayer.innerHTML = '';
+            pooleConnections.forEach(([fromId, toId]) => {
+                const from = pooleNodes.find(n => n.id === fromId);
+                const to = pooleNodes.find(n => n.id === toId);
+                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.setAttribute("x1", from.x); line.setAttribute("y1", from.y);
+                line.setAttribute("x2", to.x); line.setAttribute("y2", to.y);
+                line.setAttribute("stroke", "#1e293b"); line.setAttribute("stroke-width", "6");
+                line.setAttribute("stroke-dasharray", "6");
+                roadLayer.appendChild(line);
+            });
+        }
+
+        function getSvgPoint(e) {
+            const pt = pooleSvg.createSVGPoint();
+            const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+            const clientY = e.clientY || (e.touches && e.touches[0] ? e.touches[0].clientY : 0);
+            pt.x = clientX; pt.y = clientY;
+            return pt.matrixTransform(pooleSvg.getScreenCTM().inverse());
+        }
+
+        function sendTroops(fromNode, toNode) {
+            const isConnected = pooleConnections.some(([f, t]) => 
+                (f === fromNode.id && t === toNode.id) || (t === fromNode.id && f === toNode.id)
+            );
+
+            if (isConnected && fromNode.troops > 4) {
+                const sendCount = Math.floor(fromNode.troops / 2);
+                fromNode.troops -= sendCount;
+                pooleTravelingUnits.push({
+                    fromX: fromNode.x, fromY: fromNode.y,
+                    toX: toNode.x, toY: toNode.y,
+                    progress: 0, speed: 0.015,
+                    owner: fromNode.owner, count: sendCount, targetId: toNode.id
+                });
+            }
+        }
+
+        function handlePooleStart(e) {
+            const svgP = getSvgPoint(e);
+            let clickedNode = null;
+
+            pooleNodes.forEach(n => {
+                const dx = n.x - svgP.x;
+                const dy = n.y - svgP.y;
+                if (Math.sqrt(dx*dx + dy*dy) < 45) {
+                    clickedNode = n;
+                }
+            });
+
+            if (clickedNode) {
+                if (pooleSelectedNode && pooleSelectedNode.id !== clickedNode.id) {
+                    sendTroops(pooleSelectedNode, clickedNode);
+                    pooleSelectedNode = null;
+                } else if (clickedNode.owner === 'ron') {
+                    pooleSelectedNode = clickedNode;
+                    pooleDraggingNode = clickedNode;
+                }
+            } else {
+                pooleSelectedNode = null;
+            }
+        }
+
+        function handlePooleMove(e) {
+            const svgP = getSvgPoint(e);
+            pooleMousePos = { x: svgP.x, y: svgP.y };
+        }
+
+        function handlePooleEnd(e) {
+            if (!pooleDraggingNode) return;
+            const pt = pooleSvg.createSVGPoint();
+            const clientX = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : e.clientX;
+            const clientY = e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : e.clientY;
+            pt.x = clientX; pt.y = clientY;
+            const svgP = pt.matrixTransform(pooleSvg.getScreenCTM().inverse());
+
+            pooleNodes.forEach(target => {
+                const dx = target.x - svgP.x;
+                const dy = target.y - svgP.y;
+                if (Math.sqrt(dx*dx + dy*dy) < 45 && target.id !== pooleDraggingNode.id) {
+                    sendTroops(pooleDraggingNode, target);
+                    pooleSelectedNode = null;
+                }
+            });
+            pooleDraggingNode = null;
+        }
+
+        pooleSvg.addEventListener('mousedown', handlePooleStart);
+        window.addEventListener('mousemove', handlePooleMove);
+        window.addEventListener('mouseup', handlePooleEnd);
+
+        pooleSvg.addEventListener('touchstart', handlePooleStart, {passive: false});
+        window.addEventListener('touchmove', handlePooleMove, {passive: false});
+        window.addEventListener('touchend', handlePooleEnd);
+
+        function updatePooleGame() {
+            pooleNodes.forEach(n => {
+                if (n.owner !== 'neutral' && n.troops < n.maxTroops) {
+                    n.troops += n.genRate * 0.04;
+                }
+            });
+
+            pooleNodes.forEach(n => {
+                if (n.owner === 'general' && n.troops > 30) {
+                    const availableConns = pooleConnections.filter(([f, t]) => f === n.id || t === n.id);
+                    if (availableConns.length > 0) {
+                        const randomConn = availableConns[Math.floor(Math.random() * availableConns.length)];
+                        const targetId = randomConn[0] === n.id ? randomConn[1] : randomConn[0];
+                        const target = pooleNodes.find(node => node.id === targetId);
+                        
+                        if (target && target.owner !== n.owner) {
+                            const sendCount = Math.floor(n.troops / 2);
+                            n.troops -= sendCount;
+                            pooleTravelingUnits.push({
+                                fromX: n.x, fromY: n.y, toX: target.x, toY: target.y,
+                                progress: 0, speed: 0.012, owner: n.owner, count: sendCount, targetId: target.id
+                            });
+                        }
+                    }
+                }
+            });
+
+            pooleTravelingUnits.forEach(u => u.progress += u.speed);
+
+            pooleTravelingUnits = pooleTravelingUnits.filter(u => {
+                if (u.progress >= 1) {
+                    const target = pooleNodes.find(n => n.id === u.targetId);
+                    if (target.owner === u.owner) {
+                        target.troops += u.count;
+                    } else {
+                        target.troops -= u.count;
+                        if (target.troops < 0) {
+                            target.owner = u.owner;
+                            target.troops = Math.abs(target.troops);
+                        }
+                    }
+                    return false;
+                }
+                return true;
+            });
+
+            renderPoole();
+            requestAnimationFrame(updatePooleGame);
+        }
+
+        function drawPooleRestaurantSVG(g, n) {
+            const fac = pooleFactions[n.owner];
+
+            const shadow = document.createElementNS("http://www.w3.org/2000/svg", "ellipse");
+            shadow.setAttribute("cx", n.x); shadow.setAttribute("cy", n.y + 22);
+            shadow.setAttribute("rx", "36"); shadow.setAttribute("ry", "10");
+            shadow.setAttribute("fill", "#000000"); shadow.setAttribute("opacity", "0.5");
+            g.appendChild(shadow);
+
+            const body = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            body.setAttribute("x", n.x - 34); body.setAttribute("y", n.y - 18);
+            body.setAttribute("width", "68"); body.setAttribute("height", "38");
+            body.setAttribute("rx", "4"); body.setAttribute("fill", fac.color);
+            body.setAttribute("stroke", pooleSelectedNode && pooleSelectedNode.id === n.id ? "#facc15" : "#000");
+            body.setAttribute("stroke-width", pooleSelectedNode && pooleSelectedNode.id === n.id ? "5" : "3");
+            g.appendChild(body);
+
+            const roof = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            roof.setAttribute("d", `M ${n.x - 38} ${n.y - 18} L ${n.x} ${n.y - 32} L ${n.x + 38} ${n.y - 18} Z`);
+            roof.setAttribute("fill", fac.roof); roof.setAttribute("stroke", "#000"); roof.setAttribute("stroke-width", "3");
+            g.appendChild(roof);
+
+            if (n.owner === 'ron') {
+                const logoBox = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                logoBox.setAttribute("x", n.x - 12); logoBox.setAttribute("y", n.y - 44);
+                logoBox.setAttribute("width", "24"); logoBox.setAttribute("height", "18");
+                logoBox.setAttribute("rx", "3"); logoBox.setAttribute("fill", "#ffffff");
+                logoBox.setAttribute("stroke", "#000"); logoBox.setAttribute("stroke-width", "2");
+                g.appendChild(logoBox);
+
+                const logoText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                logoText.setAttribute("x", n.x); logoText.setAttribute("y", n.y - 30);
+                logoText.setAttribute("text-anchor", "middle"); logoText.setAttribute("fill", "#dc2626");
+                logoText.setAttribute("font-size", "14"); logoText.setAttribute("font-family", "monospace");
+                logoText.setAttribute("font-weight", "900");
+                logoText.textContent = "R";
+                g.appendChild(logoText);
+            } 
+            else if (n.owner === 'general') {
+                const logoBox = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                logoBox.setAttribute("x", n.x - 14); logoBox.setAttribute("y", n.y - 44);
+                logoBox.setAttribute("width", "28"); logoBox.setAttribute("height", "18");
+                logoBox.setAttribute("rx", "3"); logoBox.setAttribute("fill", "#fef08a");
+                logoBox.setAttribute("stroke", "#000"); logoBox.setAttribute("stroke-width", "2");
+                g.appendChild(logoBox);
+
+                const chicken = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                chicken.setAttribute("d", `M ${n.x - 6} ${n.y - 31} Q ${n.x - 2} ${n.y - 42} ${n.x + 4} ${n.y - 40} Q ${n.x + 8} ${n.y - 38} ${n.x + 6} ${n.y - 33} Q ${n.x + 2} ${n.y - 29} ${n.x - 6} ${n.y - 31} Z`);
+                chicken.setAttribute("fill", "#d97706");
+                g.appendChild(chicken);
+            }
+            else if (n.owner === 'vegan') {
+                const leaf = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                leaf.setAttribute("d", `M ${n.x} ${n.y - 44} Q ${n.x + 12} ${n.y - 34} ${n.x} ${n.y - 24} Q ${n.x - 12} ${n.y - 34} ${n.x} ${n.y - 44} Z`);
+                leaf.setAttribute("fill", "#059669"); leaf.setAttribute("stroke", "#000"); leaf.setAttribute("stroke-width", "2");
+                g.appendChild(leaf);
+            }
+
+            const badgeBg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+            badgeBg.setAttribute("x", n.x - 16); badgeBg.setAttribute("y", n.y + 2);
+            badgeBg.setAttribute("width", "32"); badgeBg.setAttribute("height", "14");
+            badgeBg.setAttribute("rx", "3"); badgeBg.setAttribute("fill", "#090d16");
+            badgeBg.setAttribute("stroke", "#000"); badgeBg.setAttribute("stroke-width", "1");
+            g.appendChild(badgeBg);
+
+            const countText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            countText.setAttribute("x", n.x); countText.setAttribute("y", n.y + 13);
+            countText.setAttribute("text-anchor", "middle"); countText.setAttribute("fill", "#fff");
+            countText.setAttribute("font-size", "10"); countText.setAttribute("font-family", "monospace");
+            countText.setAttribute("font-weight", "bold");
+            countText.textContent = Math.floor(n.troops);
+            g.appendChild(countText);
+
+            const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
+            label.setAttribute("x", n.x); label.setAttribute("y", n.y + 36);
+            label.setAttribute("text-anchor", "middle"); label.setAttribute("fill", "#e2e8f0");
+            label.setAttribute("font-size", "9"); label.setAttribute("font-family", "monospace");
+            label.textContent = n.name;
+            g.appendChild(label);
+        }
+
+        function renderPoole() {
+            const nodeLayer = document.getElementById('poole-node-layer');
+            const unitLayer = document.getElementById('poole-unit-layer');
+            nodeLayer.innerHTML = '';
+            unitLayer.innerHTML = '';
+
+            if (pooleDraggingNode) {
+                const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+                line.setAttribute("x1", pooleDraggingNode.x); line.setAttribute("y1", pooleDraggingNode.y);
+                line.setAttribute("x2", pooleMousePos.x); line.setAttribute("y2", pooleMousePos.y);
+                line.setAttribute("stroke", "#dc2626"); line.setAttribute("stroke-width", "4");
+                line.setAttribute("stroke-dasharray", "4");
+                unitLayer.appendChild(line);
+            }
+
+            pooleTravelingUnits.forEach(u => {
+                const x = u.fromX + (u.toX - u.fromX) * u.progress;
+                const y = u.fromY + (u.toY - u.fromY) * u.progress;
+                const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                circle.setAttribute("cx", x); circle.setAttribute("cy", y);
+                circle.setAttribute("r", "7");
+                circle.setAttribute("fill", pooleFactions[u.owner].color);
+                circle.setAttribute("stroke", "#000"); circle.setAttribute("stroke-width", "2");
+                unitLayer.appendChild(circle);
+            });
+
+            let ronCount = 0, genCount = 0, vegCount = 0;
+            pooleNodes.forEach(n => {
+                if (n.owner === 'ron') ronCount++;
+                if (n.owner === 'general') genCount++;
+                if (n.owner === 'vegan') vegCount++;
+
+                const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                drawPooleRestaurantSVG(g, n);
+                nodeLayer.appendChild(g);
+            });
+
+            document.getElementById('score-ron').textContent = ronCount;
+            document.getElementById('score-gen').textContent = genCount;
+            document.getElementById('score-veg').textContent = vegCount;
+        }
+
+        function resetPooleGame() {
+            pooleNodes[0].owner = 'ron'; pooleNodes[0].troops = 30;
+            pooleNodes[1].owner = 'neutral'; pooleNodes[1].troops = 15;
+            pooleNodes[2].owner = 'ron'; pooleNodes[2].troops = 20;
+            pooleNodes[3].owner = 'neutral'; pooleNodes[3].troops = 15;
+            pooleNodes[4].owner = 'general'; pooleNodes[4].troops = 25;
+            pooleNodes[5].owner = 'neutral'; pooleNodes[5].troops = 20;
+            pooleNodes[6].owner = 'vegan'; pooleNodes[6].troops = 35;
+            pooleNodes[7].owner = 'general'; pooleNodes[7].troops = 30;
+            pooleNodes[8].owner = 'vegan'; pooleNodes[8].troops = 35;
+            pooleNodes[9].owner = 'neutral'; pooleNodes[9].troops = 35;
+            pooleTravelingUnits = [];
+            pooleSelectedNode = null;
+        }
+
+        initPooleRoads();
+        requestAnimationFrame(updatePooleGame);
+    </script>
+</body>
+</html>
