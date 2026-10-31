@@ -181,7 +181,7 @@
         <!-- Warning Banner -->
         <div class="bg-red-100 border-2 sm:border-4 border-red-500 p-2.5 sm:p-3 mb-6 sm:mb-8 text-center flex items-center justify-center gap-2 sm:gap-3">
             <span class="text-lg sm:text-xl">⚠️</span>
-            <span class="font-bold text-red-700 text-[11px] sm:text-base">WARNING: UK HIGH STREET FRONT LINES ACTIVE. UNIQUE WEAPONS ARSENAL!</span>
+            <span class="font-bold text-red-700 text-[11px] sm:text-base">WARNING: UK HIGH STREET FRONT LINES ACTIVE. GIANT CHICKEN BOSS ENCOUNTER READY!</span>
             <span class="text-lg sm:text-xl">⚠️</span>
         </div>
 
@@ -270,11 +270,11 @@
             </div>
         </div>
 
-        <!-- EMBEDDED 8-BIT ARCADE CABINET SECTION (UNIQUE WEAPONS + DECK THINNING) -->
+        <!-- EMBEDDED 8-BIT ARCADE CABINET SECTION (CHAPTERS + GIANT CHICKEN + STACKABLE/UNIQUE UPGRADES) -->
         <div id="arcade-section" class="bg-black text-white p-3 sm:p-6 border-4 border-yellow-400 mb-8 sm:mb-10 shadow-[6px_6px_0px_#dc2626]">
             <div class="text-center mb-4">
                 <h2 class="retro-title text-base sm:text-3xl text-yellow-300 mb-2">🪙 8-BIT SIDE-SCROLLER 🪙</h2>
-                <p class="text-[10px] sm:text-xs font-mono text-gray-300">CHOOSE YOUR TACTICAL WEAPON UPGRADES!</p>
+                <p class="text-[10px] sm:text-xs font-mono text-gray-300">SURVIVE 5 CHAPTERS TO FACE THE GIANT CHICKEN BOSS!</p>
             </div>
 
             <!-- Arcade Cabinet Container -->
@@ -287,7 +287,7 @@
                         SCORE: <span id="arcade-score" class="text-yellow-400">000000</span>
                     </div>
                     <div>
-                        LIVES: <span id="arcade-lives" class="text-red-500">♥♥♥</span> | WAVE: <span id="arcade-wave" class="text-green-400">1</span>
+                        LIVES: <span id="arcade-lives" class="text-red-500">♥♥♥</span> | <span id="arcade-chapter-label" class="text-green-400">CHAPTER 1: STREETS</span>
                     </div>
                 </div>
 
@@ -299,7 +299,7 @@
                     <div id="arcade-overlay" class="absolute inset-0 bg-black/90 flex flex-col items-center justify-center p-4 z-30 text-center">
                         <h3 class="retro-title text-sm sm:text-2xl text-red-500 mb-2 sm:mb-3">BURGER WARS: FRONT-LINE</h3>
                         <p class="text-yellow-300 text-[11px] sm:text-xs mb-4 font-mono leading-relaxed">
-                            Marcus vs General's Chicken Cluckers & Bosses!<br>Tap screen controls below or use keyboard.
+                            Marcus vs General's Chicken Cluckers & Giant Bosses!<br>Tap screen controls below or use keyboard.
                         </p>
                         <button onclick="startArcadeGame()" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 border-2 sm:border-4 border-white text-xs uppercase shadow-[4px_4px_0px_#ffff00]">
                             START PLAYING
@@ -309,7 +309,7 @@
                     <!-- 3-Card Power-Up Overlay -->
                     <div id="powerup-overlay" class="absolute inset-0 bg-black/95 flex flex-col items-center justify-center p-3 z-40 text-center hidden">
                         <h3 class="retro-title text-sm sm:text-xl text-yellow-300 mb-1">🎁 FRONTLINE PROMOTION! 🎁</h3>
-                        <p class="text-xs font-mono text-gray-300 mb-4">CHOOSE YOUR TACTICAL UPGRADE:</p>
+                        <p class="text-xs font-mono text-gray-300 mb-4">CHOOSE YOUR TACTICAL UPGRADE (STACKABLE OR WEAPON SWAP):</p>
                         <div id="powerup-cards-container" class="grid grid-cols-3 gap-2 sm:gap-4 max-w-xl w-full">
                             <!-- Injected dynamically -->
                         </div>
@@ -330,7 +330,7 @@
 
                 <!-- Arcade Controls Footer (Desktop) -->
                 <div class="hidden sm:flex px-4 py-2 bg-black border-t-2 border-red-600 text-xs text-gray-400 justify-between font-mono">
-                    <div>[← / → or A/D] MOVE | [SPACE / W] JUMP | [J or X] SHOOT (COOLDOWN ACTIVE)</div>
+                    <div>[← / → or A/D] MOVE | [SPACE / W] JUMP | [J or X] SHOOT PATTY</div>
                     <div class="text-yellow-400">S.R. MOORE ARCADE</div>
                 </div>
             </div>
@@ -680,7 +680,7 @@
             }
         }
 
-        // --- EMBEDDED ARCADE ENGINE (WEAPONS + DECK THINNING) ---
+        // --- EMBEDDED ARCADE ENGINE (CHAPTERS + GIANT CHICKEN + STACKABLE/UNIQUE UPGRADES) ---
         const canvas = document.getElementById('arcadeCanvas');
         const ctx = canvas.getContext('2d');
 
@@ -707,6 +707,13 @@
                 gain.gain.setValueAtTime(0.08, now);
                 gain.gain.linearRampToValueAtTime(0.01, now + 0.1);
                 osc.start(now); osc.stop(now + 0.1);
+            } else if (type === 'airstrike') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(250, now);
+                osc.frequency.exponentialRampToValueAtTime(50, now + 0.6);
+                gain.gain.setValueAtTime(0.3, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.6);
+                osc.start(now); osc.stop(now + 0.6);
             } else if (type === 'jump') {
                 osc.type = 'triangle';
                 osc.frequency.setValueAtTime(160, now);
@@ -741,7 +748,7 @@
         let arcadeState = 'START';
         let arcadeScore = 0;
         let arcadeLives = 3;
-        let arcadeWave = 1;
+        let arcadeWave = 1; // Used as Chapter
         let arcadeTime = 0;
         let nextPowerUpThreshold = 1000;
         let activeBoss = null;
@@ -749,11 +756,12 @@
 
         // Player perks & weapon state
         let playerPerks = {
-            weapon: 'standard', // 'standard', 'flamethrower', 'cannon'
+            weapon: 'standard', // 'standard', 'flamethrower', 'cannon', 'airstrike'
+            rateOfFireBonus: 0, // Stackable reduction in shootCooldown
             tripleShot: false,
             piercingPatties: false,
             speedMultiplier: 1.0,
-            acquiredPerks: [] // Tracks what has been bought to remove from pool
+            acquiredPerks: [] // Tracks unique unique weapon/perks to prevent duplicates
         };
 
         let player = { x: 80, y: 300, width: 32, height: 48, vx: 0, vy: 0, baseSpeed: 4, jumpPower: -9, grounded: false, facing: 'right' };
@@ -794,9 +802,11 @@
             
             const startX = player.facing === 'right' ? player.x + player.width : player.x - 10;
             const dirX = player.facing === 'right' ? 8 : -8;
+            const baseCooldown = 18;
+            shootCooldown = Math.max(4, baseCooldown - playerPerks.rateOfFireBonus);
 
             if (playerPerks.weapon === 'flamethrower') {
-                shootCooldown = 6; // Fast flame stream
+                shootCooldown = Math.max(3, 8 - playerPerks.rateOfFireBonus);
                 playArcadeSound('flame');
                 arcadeBullets.push({
                     x: startX, y: player.y + 14,
@@ -804,15 +814,25 @@
                     width: 16, height: 12, pierce: true, isPlayer: true, isFlame: true, life: 18
                 });
             } else if (playerPerks.weapon === 'cannon') {
-                shootCooldown = 30; // Heavy reload
+                shootCooldown = Math.max(12, 28 - playerPerks.rateOfFireBonus);
                 playArcadeSound('shoot');
                 arcadeBullets.push({
                     x: startX, y: player.y + 12,
                     vx: dirX * 0.8, vy: -3,
                     width: 14, height: 14, pierce: false, isPlayer: true, isCannon: true
                 });
+            } else if (playerPerks.weapon === 'airstrike') {
+                shootCooldown = Math.max(15, 35 - playerPerks.rateOfFireBonus);
+                playArcadeSound('airstrike');
+                // Fires multi-missile burger rain across screen
+                for (let m = 0; m < 3; m++) {
+                    arcadeBullets.push({
+                        x: player.x + (m * 40 - 20), y: 0,
+                        vx: dirX * 0.5, vy: 4,
+                        width: 12, height: 12, pierce: true, isPlayer: true, isAirstrike: true
+                    });
+                }
             } else {
-                shootCooldown = 18; // Standard rate of fire limit
                 playArcadeSound('shoot');
                 if (playerPerks.tripleShot) {
                     arcadeBullets.push({ x: startX, y: player.y + 8, vx: dirX, vy: -1.2, width: 10, height: 6, pierce: playerPerks.piercingPatties, isPlayer: true });
@@ -835,7 +855,14 @@
             arcadeState = 'PLAYING';
             arcadeScore = 0; arcadeLives = 3; arcadeWave = 1; nextPowerUpThreshold = 1000;
             activeBoss = null; shootCooldown = 0;
-            playerPerks = { weapon: 'standard', tripleShot: false, piercingPatties: false, speedMultiplier: 1.0, acquiredPerks: [] };
+            playerPerks = {
+                weapon: 'standard',
+                rateOfFireBonus: 0,
+                tripleShot: false,
+                piercingPatties: false,
+                speedMultiplier: 1.0,
+                acquiredPerks: []
+            };
             player.x = 80; player.y = 300;
             arcadeBullets = []; arcadeEnemies = [];
             initArcadeBuildings();
@@ -844,12 +871,17 @@
         }
 
         const masterCardPool = [
-            { id: 'trevor_speed', title: "Trevor's Comms Boost", desc: "Permanent +30% Sprint Speed", icon: "🎧", cost: 0 },
-            { id: 'vera_life', title: "Vera's Emergency Ration", desc: "+1 Extra Heart / Life", icon: "💖", cost: 0 },
-            { id: 'triple_shot', title: "Flame-Grilled Spread", desc: "Shoot 3 Patties at once! (-500 Pts)", icon: "🍔", cost: 500 },
-            { id: 'pierce_patty', title: "Heavy Spatula", desc: "Patties pierce through enemies! (-300 Pts)", icon: "🗡️", cost: 300 },
-            { id: 'weapon_flame', title: "Grease Flamethrower", desc: "Equip short-range flame stream! (-800 Pts)", icon: "🔥", cost: 800 },
-            { id: 'weapon_cannon', title: "Condiment Cannon", desc: "Fire heavy arcing sauce bombs! (-800 Pts)", icon: "💣", cost: 800 }
+            // Stackable Upgrades (Can be bought repeatedly)
+            { id: 'vera_life', title: "Vera's Emergency Ration", desc: "+1 Extra Heart (Stackable)", icon: "💖", cost: 0, stackable: true },
+            { id: 'rate_of_fire', title: "Spatula Speed Polish", desc: "+30% Rate of Fire (Stackable)", icon: "⚡", cost: 200, stackable: true },
+            { id: 'trevor_speed', title: "Trevor's Comms Boost", desc: "+30% Sprint Speed (Stackable)", icon: "🎧", cost: 150, stackable: true },
+            
+            // Unique / One-Time Upgrades (Removed once bought)
+            { id: 'triple_shot', title: "Flame-Grilled Spread", desc: "Shoot 3 Patties at once! (-600 Pts)", icon: "🍔", cost: 600, stackable: false },
+            { id: 'pierce_patty', title: "Heavy Spatula", desc: "Patties pierce enemies! (-400 Pts)", icon: "🗡️", cost: 400, stackable: false },
+            { id: 'weapon_flame', title: "Grease Flamethrower", desc: "Melt enemies with short-range fire! (-1500 Pts)", icon: "🔥", cost: 1500, stackable: false },
+            { id: 'weapon_cannon', title: "Condiment Cannon", desc: "Fire heavy arcing sauce bombs! (-1800 Pts)", icon: "💣", cost: 1800, stackable: false },
+            { id: 'weapon_airstrike', title: "Ron's Air-Strike Beacon", desc: "Call down orbital burger carpet bombs! (-2500 Pts)", icon: "🚀", cost: 2500, stackable: false }
         ];
 
         function triggerPowerUpScreen() {
@@ -858,13 +890,9 @@
             const container = document.getElementById('powerup-cards-container');
             container.innerHTML = '';
 
-            // Filter out already acquired perks so they never repeat
-            const availableCards = masterCardPool.filter(card => !playerPerks.acquiredPerks.includes(card.id));
-            if (availableCards.length === 0) {
-                arcadeState = 'PLAYING'; // If all perks unlocked, resume game
-                return;
-            }
-
+            // Filter out unique perks if already acquired, but keep stackable perks available
+            const availableCards = masterCardPool.filter(card => card.stackable || !playerPerks.acquiredPerks.includes(card.id));
+            
             const shuffled = [...availableCards].sort(() => 0.5 - Math.random()).slice(0, 3);
             shuffled.forEach(card => {
                 const canAfford = arcadeScore >= card.cost;
@@ -872,7 +900,7 @@
                 cardEl.className = `btn-90s ${canAfford ? 'bg-yellow-200 hover:bg-yellow-300 cursor-pointer' : 'bg-gray-400 opacity-60 cursor-not-allowed'} p-2 sm:p-3 text-center flex flex-col items-center justify-between border-2 border-black`;
                 
                 if (canAfford) {
-                    cardEl.onclick = () => selectPowerUpCard(card.id, card.cost);
+                    cardEl.onclick = () => selectPowerUpCard(card.id, card.cost, card.stackable);
                 }
 
                 cardEl.innerHTML = `
@@ -887,18 +915,22 @@
             document.getElementById('powerup-overlay').classList.remove('hidden');
         }
 
-        function selectPowerUpCard(cardId, cost) {
+        function selectPowerUpCard(cardId, cost, isStackable) {
             if (arcadeScore < cost) return;
             arcadeScore -= cost;
 
-            playerPerks.acquiredPerks.push(cardId); // Mark as acquired so it won't appear again
+            if (!isStackable) {
+                playerPerks.acquiredPerks.push(cardId); // Mark unique perk as acquired
+            }
 
-            if (cardId === 'trevor_speed') playerPerks.speedMultiplier += 0.3;
             if (cardId === 'vera_life') arcadeLives = Math.min(arcadeLives + 1, 5);
+            if (cardId === 'rate_of_fire') playerPerks.rateOfFireBonus += 3;
+            if (cardId === 'trevor_speed') playerPerks.speedMultiplier += 0.3;
             if (cardId === 'triple_shot') playerPerks.tripleShot = true;
             if (cardId === 'pierce_patty') playerPerks.piercingPatties = true;
             if (cardId === 'weapon_flame') playerPerks.weapon = 'flamethrower';
             if (cardId === 'weapon_cannon') playerPerks.weapon = 'cannon';
+            if (cardId === 'weapon_airstrike') playerPerks.weapon = 'airstrike';
 
             document.getElementById('powerup-overlay').classList.add('hidden');
             arcadeState = 'PLAYING';
@@ -930,14 +962,14 @@
                 player.y = groundY - player.height; player.vy = 0; player.grounded = true;
             }
 
-            // Bullet & Flame Updates
+            // Bullet Updates
             for (let i = arcadeBullets.length - 1; i >= 0; i--) {
                 let bul = arcadeBullets[i];
                 bul.x += bul.vx;
                 bul.y += (bul.vy || 0);
 
-                if (bul.isCannon) {
-                    bul.vy += 0.2; // Gravity arc for cannon
+                if (bul.isCannon || bul.isAirstrike) {
+                    bul.vy += 0.25; // Gravity arc
                 }
                 if (bul.isFlame) {
                     bul.life--;
@@ -966,11 +998,11 @@
                 }
             }
 
-            // Boss spawn condition every 5 waves
-            if (arcadeWave % 5 === 0 && !activeBoss && arcadeEnemies.length === 0) {
+            // Chapter & Boss Check (Boss appears on Chapter 5)
+            if (arcadeWave === 5 && !activeBoss && arcadeEnemies.length === 0) {
                 activeBoss = {
-                    x: canvas.width - 120, y: 320 - 90, width: 80, height: 90,
-                    hp: 35, maxHp: 35, vx: -1, shootTimer: 0, name: "COLONEL CLUCK MECH"
+                    x: canvas.width - 150, y: 320 - 130, width: 110, height: 130,
+                    hp: 60, maxHp: 60, vx: -1.2, shootTimer: 0, name: "MEGA-CHICKEN BOSS"
                 };
                 playArcadeSound('boss_spawn');
             }
@@ -978,15 +1010,15 @@
             // Boss Logic
             if (activeBoss) {
                 activeBoss.x += activeBoss.vx;
-                if (activeBoss.x < 500 || activeBoss.x > canvas.width - 100) activeBoss.vx *= -1;
+                if (activeBoss.x < 450 || activeBoss.x > canvas.width - 120) activeBoss.vx *= -1;
 
                 activeBoss.shootTimer++;
-                if (activeBoss.shootTimer > 90) {
+                if (activeBoss.shootTimer > 75) {
                     activeBoss.shootTimer = 0;
                     arcadeBullets.push({
-                        x: activeBoss.x, y: activeBoss.y + 30,
-                        vx: -5, vy: (Math.random() - 0.5) * 2,
-                        width: 14, height: 14, isPlayer: false
+                        x: activeBoss.x, y: activeBoss.y + 40,
+                        vx: -6, vy: (Math.random() - 0.5) * 3,
+                        width: 16, height: 16, isPlayer: false
                     });
                 }
 
@@ -995,18 +1027,18 @@
                     if (bul.isPlayer && bul.x < activeBoss.x + activeBoss.width && bul.x + bul.width > activeBoss.x &&
                         bul.y < activeBoss.y + activeBoss.height && bul.y + bul.height > activeBoss.y) {
                         if (!bul.pierce && !bul.isFlame) arcadeBullets.splice(b, 1);
-                        activeBoss.hp -= (bul.isCannon ? 3 : 1);
+                        activeBoss.hp -= (bul.isCannon ? 3 : (bul.isAirstrike ? 4 : 1));
                         playArcadeSound('hit');
                         if (activeBoss.hp <= 0) {
-                            arcadeScore += 1000;
+                            arcadeScore += 2500;
                             activeBoss = null;
-                            arcadeWave++;
+                            arcadeWave++; // Move to Chapter 6+
                         }
                         break;
                     }
                 }
             } else {
-                if (Math.random() < 0.018 + (arcadeWave * 0.003)) {
+                if (arcadeWave !== 5 && Math.random() < 0.018 + (arcadeWave * 0.003)) {
                     const randType = Math.random();
                     let enType = 'normal';
                     let enHp = 2;
@@ -1048,7 +1080,7 @@
                             bul.y < en.y + en.height && bul.y + bul.height > en.y) {
                             
                             if (!bul.pierce && !bul.isFlame) arcadeBullets.splice(b, 1);
-                            en.hp -= (bul.isCannon ? 3 : 1);
+                            en.hp -= (bul.isCannon ? 3 : (bul.isAirstrike ? 4 : 1));
                             playArcadeSound('hit');
                             if (en.hp <= 0) {
                                 arcadeScore += (en.type === 'armored' ? 200 : 100);
@@ -1063,6 +1095,7 @@
                         arcadeLives--; playArcadeSound('hit'); arcadeEnemies.splice(i, 1);
                         if (arcadeLives <= 0) {
                             arcadeState = 'GAMEOVER';
+                            document.getElementById('arcade-overlay').classList.add('hidden'); // Fix overlay hide/show
                             document.getElementById('arcade-overlay').classList.remove('hidden');
                             document.getElementById('arcade-overlay').querySelector('button').innerText = 'PLAY AGAIN';
                         }
@@ -1071,19 +1104,26 @@
                     if (en && en.x < -50) arcadeEnemies.splice(i, 1);
                 }
 
-                if (arcadeScore > arcadeWave * 1000) arcadeWave++;
+                if (arcadeScore > arcadeWave * 1200 && arcadeWave < 5) arcadeWave++;
             }
 
             document.getElementById('arcade-score').innerText = String(arcadeScore).padStart(6, '0');
             document.getElementById('arcade-lives').innerText = '♥'.repeat(arcadeLives);
-            document.getElementById('arcade-wave').innerText = arcadeWave;
+            
+            // Story Chapter Titles
+            let chapterTitle = "CHAPTER 1: THE STREETS";
+            if (arcadeWave === 2) chapterTitle = "CHAPTER 2: HIGH STREET WASTES";
+            else if (arcadeWave === 3) chapterTitle = "CHAPTER 3: SMOG INDUSTRIAL";
+            else if (arcadeWave === 4) chapterTitle = "CHAPTER 4: DEEP FRYER ALLEY";
+            else if (arcadeWave >= 5) chapterTitle = "CHAPTER 5: MEGA-CHICKEN SHOWDOWN";
+            document.getElementById('arcade-chapter-label').innerText = chapterTitle;
         }
 
         function drawArcade() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
             let grad = ctx.createLinearGradient(0, 0, 0, 320);
-            if (arcadeWave % 5 === 0 || activeBoss) {
+            if (arcadeWave === 5 || activeBoss) {
                 grad.addColorStop(0, '#581c87'); grad.addColorStop(1, '#3b0764');
             } else if (arcadeWave >= 4) {
                 grad.addColorStop(0, '#7f1d1d'); grad.addColorStop(1, '#450a0a');
@@ -1107,14 +1147,9 @@
             ctx.fillStyle = '#111827'; ctx.fillRect(0, 320, canvas.width, 80);
             ctx.fillStyle = '#dc2626'; ctx.fillRect(0, 320, canvas.width, 5);
 
-            ctx.fillStyle = 'rgba(0,0,0,0.6)'; ctx.fillRect(10, 10, 240, 30);
-            ctx.strokeStyle = '#facc15'; ctx.lineWidth = 1; ctx.strokeRect(10, 10, 240, 30);
-            ctx.fillStyle = '#facc15'; ctx.font = '7px "Press Start 2P"';
-            ctx.fillText("TREVOR & VERA: 'HOLD THE LINE!'", 16, 28);
-
             arcadeBullets.forEach(b => {
                 if (b.isFlame) ctx.fillStyle = '#f97316';
-                else if (b.isCannon) ctx.fillStyle = '#ef4444';
+                else if (b.isCannon || b.isAirstrike) ctx.fillStyle = '#ef4444';
                 else ctx.fillStyle = b.isPlayer ? '#fbbf24' : '#ef4444';
                 ctx.fillRect(b.x, b.y, b.width, b.height);
             });
@@ -1127,13 +1162,16 @@
             else ctx.fillRect(player.x - 10, player.y + 20, 16, 5);
 
             if (activeBoss) {
-                ctx.fillStyle = '#b45309'; ctx.fillRect(activeBoss.x, activeBoss.y, activeBoss.width, activeBoss.height);
-                ctx.fillStyle = '#fef08a'; ctx.fillRect(activeBoss.x + 10, activeBoss.y - 15, activeBoss.width - 20, 25);
-                ctx.fillStyle = '#000000'; ctx.font = 'bold 8px sans-serif'; ctx.fillText("BOSS", activeBoss.x + 24, activeBoss.y);
+                // Giant Chicken Boss Sprite Render
+                ctx.fillStyle = '#fef08a'; ctx.fillRect(activeBoss.x, activeBoss.y, activeBoss.width, activeBoss.height);
+                ctx.fillStyle = '#b45309'; ctx.fillRect(activeBoss.x + 10, activeBoss.y + 10, activeBoss.width - 20, 40); // Body feather plate
+                ctx.fillStyle = '#dc2626'; ctx.fillRect(activeBoss.x + activeBoss.width - 25, activeBoss.y + 20, 30, 20); // Giant beak
+                ctx.fillStyle = '#000000'; ctx.fillRect(activeBoss.x + activeBoss.width - 15, activeBoss.y + 26, 6, 6); // Eye
                 
-                ctx.fillStyle = '#000'; ctx.fillRect(canvas.width / 2 - 100, 15, 200, 12);
-                ctx.fillStyle = '#dc2626'; ctx.fillRect(canvas.width / 2 - 98, 17, (196 * (activeBoss.hp / activeBoss.maxHp)), 8);
-                ctx.fillStyle = '#fff'; ctx.font = '7px monospace'; ctx.fillText("COLONEL CLUCK MECH", canvas.width / 2 - 65, 25);
+                // Boss Health Bar
+                ctx.fillStyle = '#000'; ctx.fillRect(canvas.width / 2 - 110, 12, 220, 14);
+                ctx.fillStyle = '#dc2626'; ctx.fillRect(canvas.width / 2 - 108, 14, (216 * (activeBoss.hp / activeBoss.maxHp)), 10);
+                ctx.fillStyle = '#fff'; ctx.font = '7px monospace'; ctx.fillText("GIANT MEGA-CHICKEN BOSS", canvas.width / 2 - 75, 23);
             }
 
             arcadeEnemies.forEach(en => {
